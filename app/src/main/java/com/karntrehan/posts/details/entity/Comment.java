@@ -50,4 +50,15 @@ public class Comment {
                 + " body TEXT NOT NULL "
                 + ");";
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "postId=" + postId +
+                ", commentId=" + commentId +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", body='" + body + '\'' +
+                '}';
+    }
 }

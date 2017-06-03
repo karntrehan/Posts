@@ -36,7 +36,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/def_small_margin"
                     android:layout_marginTop="@dimen/def_small_margin"
-                    android:maxLines="2"
                     tools:text="Body to post" />
 
 
@@ -63,6 +62,7 @@
                             android:id="@+id/ivAvatar"
                             android:layout_width="@dimen/def_avatar_size"
                             android:layout_height="@dimen/def_avatar_size"
+                            android:contentDescription="@string/user_image"
                             android:scaleType="centerCrop"
                             tools:background="@mipmap/ic_launcher" />
 
@@ -71,6 +71,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/ivAvatar"
                             android:layout_toRightOf="@+id/ivAvatar"
                             android:padding="@dimen/card_padding"
                             tools:text="Karan Trehan" />
@@ -80,6 +81,9 @@
                     <TextView
                         android:id="@+id/tvCommentCounter"
                         style="@style/actionable_text"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         android:visibility="gone"
                         tools:text="See all 56 comments >"
                         tools:visibility="visible" />

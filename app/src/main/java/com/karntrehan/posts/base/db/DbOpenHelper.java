@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.karntrehan.posts.PostApp;
 import com.karntrehan.posts.details.entity.Comment;
+import com.karntrehan.posts.details.entity.User;
 import com.karntrehan.posts.list.entity.Post;
 
 /**
@@ -29,6 +30,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     public void onCreate(@NonNull SQLiteDatabase db) {
         db.execSQL(Post.createTableQuery());
         db.execSQL(Comment.createTableQuery());
+        db.execSQL(User.createTableQuery());
     }
 
     @Override

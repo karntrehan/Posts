@@ -27,7 +27,7 @@ public class Post implements Parcelable {
 
     @StorIOSQLiteColumn(name = "post_id", key = true)
     @SerializedName("id")
-    Long postId;
+    int postId;
 
     @StorIOSQLiteColumn(name = "post_title")
     @SerializedName("title")
@@ -42,6 +42,7 @@ public class Post implements Parcelable {
 
     protected Post(Parcel in) {
         userId = in.readInt();
+        postId = in.readInt();
         postTitle = in.readString();
         postBody = in.readString();
     }
@@ -57,6 +58,7 @@ public class Post implements Parcelable {
             return new Post[size];
         }
     };
+
 
     @Override
     public String toString() {
@@ -92,6 +94,14 @@ public class Post implements Parcelable {
                 + ");";
     }
 
+    public String getPostBody() {
+        return postBody;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -99,16 +109,16 @@ public class Post implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+
         parcel.writeInt(userId);
+        parcel.writeInt(postId);
         parcel.writeString(postTitle);
         parcel.writeString(postBody);
     }
 
-    public String getPostBody() {
-        return postBody;
+
+    public int getUserId() {
+        return userId;
     }
 
-    public Long getPostId() {
-        return postId;
-    }
 }

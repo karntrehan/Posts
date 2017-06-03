@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".details.DetailsActivity" />
+        <activity android:name=".details.DetailsActivity"
+            android:label="@string/details"/>
     </application>
 
 </manifest>

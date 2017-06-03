@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,9 +36,31 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
+        setUpToolbar();
         handleExtras();
 
         ((PostApp) this.getApplication()).createDetailComponent().inject(this);
+
+        binding.tvCommentCounter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(DetailsActivity.this, "Coming soon!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setUpToolbar() {
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -87,7 +110,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         if (details.userName != null) {
             binding.rlUserDetails.setVisibility(View.VISIBLE);
             binding.tvAuthorName.setText(details.userName);
-            picasso.load(details.userAvatar).centerCrop().into(binding.ivAvatar);
+            picasso.load(details.userAvatar).placeholder(R.drawable.loading).into(binding.ivAvatar);
         }
         if (binding.tvCommentCounter != null) {
             binding.tvCommentCounter.setVisibility(View.VISIBLE);

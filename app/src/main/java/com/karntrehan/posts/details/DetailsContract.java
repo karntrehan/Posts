@@ -25,6 +25,6 @@ public interface DetailsContract {
     }
 
     interface Model {
-        void loadPostDetails(Long postId, StatefulCallback<Details> detailsStatefulCallback);
+        void loadPostDetails(Post postId, StatefulCallback<Details> detailsStatefulCallback);
     }
 }

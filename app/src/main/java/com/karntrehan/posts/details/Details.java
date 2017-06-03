@@ -7,5 +7,24 @@ package com.karntrehan.posts.details;
 public class Details {
     String userName;
     String userAvatar;
-    String commentCount;
+    long commentCount;
+
+    public Details() {
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
+    }
+
+    public void setCommentCount(long commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public void setUserAvatarFromEmail(String email) {
+        this.userAvatar = "https://api.adorable.io/avatars/56/" + email + "@adorable.png";
+    }
 }

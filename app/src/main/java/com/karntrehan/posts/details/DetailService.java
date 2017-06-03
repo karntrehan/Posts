@@ -17,8 +17,8 @@ import retrofit2.http.Query;
 
 public interface DetailService {
     @GET("/users/")
-    Call<User> getUser(@Query("id") Long id);
+    Call<List<User>> getUser(@Query("id") Integer id);
 
     @GET("/comments/")
-    Call<List<Comment>> getComments(@Query("postId") Long id);
+    Call<List<Comment>> getComments(@Query("postId") Integer id);
 }
