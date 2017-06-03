@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "com.karntrehan.posts"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        //Two different base urls for bebug and release versions
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'BASE_URL', '"http://jsonplaceholder.typicode.com/"'
+        }
+        debug{
+            minifyEnabled false
+            buildConfigField 'String', 'BASE_URL', '"http://jsonplaceholder.typicode.com/"'
+        }
+    }
+
+    //Enable databinding
+    dataBinding {
+        enabled = true
+    }
+
+}
+
+
+dependencies {
+
+    ////////////////////////////////////////////////////////////////////
+    //// Abstracting library versions to make it easier to change later.
+    ////////////////////////////////////////////////////////////////////
+
+    /*https://developer.android.com/topic/libraries/support-library/revisions.html*/
+    final SUPPORT_VERSION = '25.3.1';
+    /*https://mvnrepository.com/artifact/junit/junit*/
+    final JUNIT = '4.12';
+    /*https://github.com/google/dagger#dagger-2*/
+    final DAGGER = '2.11';
+    /*http://square.github.io/retrofit/#Download*/
+    final RETROFIT = '2.3.0';
+    /*https://github.com/square/okhttp#download*/
+    final OKHTTP = '3.8.0';
+    /*https://github.com/facebook/stetho#download*/
+    final STETHO = '1.5.0'
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+
+    //Support libraries
+    compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
+    compile "com.android.support:cardview-v7:$SUPPORT_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
+
+    //Dependency injection
+    compile "com.google.dagger:dagger:$DAGGER"
+    annotationProcessor "com.google.dagger:dagger-compiler:$DAGGER"
+
+    //Networking
+    compile "com.squareup.retrofit2:retrofit:$RETROFIT"
+    compile "com.squareup.retrofit2:converter-gson:$RETROFIT"
+    compile "com.squareup.okhttp3:okhttp:$OKHTTP"
+
+    //Network debugging
+    compile "com.facebook.stetho:stetho:$STETHO"
+    compile "com.facebook.stetho:stetho-okhttp3:$STETHO"
+
+    //Unit testing
+    testCompile "junit:junit:$JUNIT"
+
+    //Instrumented Testing
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+
