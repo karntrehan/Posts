@@ -6,6 +6,8 @@ import com.facebook.stetho.Stetho;
 import com.karntrehan.posts.base.di.AppComponent;
 import com.karntrehan.posts.base.di.AppModule;
 import com.karntrehan.posts.base.di.DaggerAppComponent;
+import com.karntrehan.posts.details.di.DetailComponent;
+import com.karntrehan.posts.details.di.DetailModule;
 import com.karntrehan.posts.list.di.ListComponent;
 import com.karntrehan.posts.list.di.ListModule;
 
@@ -44,5 +46,9 @@ public class PostApp extends Application {
 
     public ListComponent createListComponent() {
         return appComponent.plus(new ListModule());
+    }
+
+    public DetailComponent createDetailComponent() {
+        return appComponent.plus(new DetailModule());
     }
 }

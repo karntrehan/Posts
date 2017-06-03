@@ -1,5 +1,8 @@
 package com.karntrehan.posts.list.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
@@ -9,7 +12,7 @@ import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
  */
 
 @StorIOSQLiteType(table = Post.TABLE_NAME)
-public class Post {
+public class Post implements Parcelable {
 
     public static final String TABLE_NAME = "posts";
 
@@ -36,6 +39,24 @@ public class Post {
 
     Post() {
     }
+
+    protected Post(Parcel in) {
+        userId = in.readInt();
+        postTitle = in.readString();
+        postBody = in.readString();
+    }
+
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        @Override
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
+        }
+
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
 
     @Override
     public String toString() {
@@ -69,5 +90,25 @@ public class Post {
                 + " post_body TEXT NOT NULL,"
                 + " user_id INTEGER NOT NULL "
                 + ");";
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(userId);
+        parcel.writeString(postTitle);
+        parcel.writeString(postBody);
+    }
+
+    public String getPostBody() {
+        return postBody;
+    }
+
+    public Long getPostId() {
+        return postId;
     }
 }

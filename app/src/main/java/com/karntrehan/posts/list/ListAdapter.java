@@ -2,6 +2,7 @@ package com.karntrehan.posts.list;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,14 +44,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Post post = posts.get(position);
         holder.binding.tvTitle.setText(post.getPostTitle());
         holder.binding.tvBody.setText(post.getFormattedPostBody());
+
+        //SharedItem transition
+        ViewCompat.setTransitionName(holder.binding.tvTitle, post.getPostTitle());
+        ViewCompat.setTransitionName(holder.binding.tvBody, post.getFormattedPostBody());
+
         holder.binding.cvPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.postClicked(post);
+                presenter.postClicked(position,post,holder);
             }
         });
     }

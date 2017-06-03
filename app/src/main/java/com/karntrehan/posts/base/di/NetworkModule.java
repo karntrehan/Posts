@@ -47,7 +47,7 @@ public class NetworkModule {
 
     @AppScope
     @Provides
-    OkHttpClient okHttpClient(Cache cache) {
+    public OkHttpClient okHttpClient(Cache cache) {
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .cache(cache)
                 .connectTimeout(30, TimeUnit.SECONDS)

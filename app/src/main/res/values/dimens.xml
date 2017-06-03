@@ -3,4 +3,5 @@
     <dimen name="card_margin">5dp</dimen>
     <dimen name="card_padding">8dp</dimen>
     <dimen name="def_small_margin">4dp</dimen>
+    <dimen name="def_avatar_size">56dp</dimen>
 </resources>

@@ -37,13 +37,8 @@
                 tools:text="Body to post" />
 
             <TextView
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="@dimen/def_small_margin"
-                android:text="@string/know_more"
-                android:textColor="@color/colorAccent" />
+                style="@style/actionable_text"
+                android:text="@string/know_more" />
 
         </LinearLayout>
 

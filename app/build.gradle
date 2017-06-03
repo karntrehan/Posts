@@ -18,7 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField 'String', 'BASE_URL', '"http://jsonplaceholder.typicode.com/"'
         }
-        debug{
+        debug {
             minifyEnabled false
             buildConfigField 'String', 'BASE_URL', '"http://jsonplaceholder.typicode.com/"'
         }
@@ -52,9 +52,12 @@ dependencies {
     final STETHO = '1.5.0'
     /*https://github.com/pushtorefresh/storio#download*/
     final STORIO = '1.13.0'
+    /*http://square.github.io/picasso/#Download*/
+    final PICASSO = '2.5.2'
+    /*https://github.com/JakeWharton/picasso2-okhttp3-downloader#download*/
+    final PICASSO_DOWNLOADER = '1.1.0'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
 
     //Support libraries
     compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
@@ -79,6 +82,9 @@ dependencies {
     compile "com.pushtorefresh.storio:sqlite-annotations:$STORIO"
     annotationProcessor "com.pushtorefresh.storio:sqlite-annotations-processor:$STORIO"
 
+    //IMAGE LOADING
+    compile "com.squareup.picasso:picasso:$PICASSO"
+    compile "com.jakewharton.picasso:picasso2-okhttp3-downloader:$PICASSO_DOWNLOADER"
 
     //Unit testing
     testCompile "junit:junit:$JUNIT"
@@ -87,5 +93,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
+
 

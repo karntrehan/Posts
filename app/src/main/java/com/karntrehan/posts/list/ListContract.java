@@ -19,7 +19,7 @@ public interface ListContract {
 
         void getPosts();
 
-        void postClicked(Post post);
+        void postClicked(int position, Post post, ListAdapter.ViewHolder holder);
     }
 
     interface View {
@@ -28,6 +28,8 @@ public interface ListContract {
         void showPosts(List<Post> posts);
 
         void showError(String error);
+
+        void showPostDetail(int position, Post post, ListAdapter.ViewHolder holder);
     }
 
     interface Model {
