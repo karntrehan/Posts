@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager"
+            android:scrollbars="vertical"
             tools:listitem="@layout/post_item"
             tools:context="com.karntrehan.posts.list.ListActivity" />
     </android.support.v4.widget.SwipeRefreshLayout>

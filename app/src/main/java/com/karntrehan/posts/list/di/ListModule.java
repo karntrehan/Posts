@@ -6,6 +6,7 @@ import com.karntrehan.posts.list.ListAdapter;
 import com.karntrehan.posts.list.ListContract;
 import com.karntrehan.posts.list.ListModel;
 import com.karntrehan.posts.list.ListPresenter;
+import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,8 +19,8 @@ import retrofit2.Retrofit;
 public class ListModule {
 
     @Provides
-    ListContract.Model model(Retrofit retrofit) {
-        return new ListModel(retrofit);
+    ListContract.Model model(Retrofit retrofit, StorIOSQLite storIOSQLite) {
+        return new ListModel(retrofit,storIOSQLite);
     }
 
     @Provides

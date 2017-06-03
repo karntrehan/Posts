@@ -67,12 +67,20 @@ public class ListPresenter implements ListContract.Presenter {
 
             @Override
             public void onValidationError(Response response) {
-                //TODO
+                //Handle the validation error sent by the server using ErrorParser!
+                if (!isViewReady())
+                    return;
+
+                view.showLoading(false);
+                view.showError("Error, Server returned: " + response.code());
             }
 
             @Override
             public void onFailure(Throwable throwable) {
-                //TODO
+                if (!isViewReady())return;
+
+                view.showLoading(false);
+                view.showError("Error: "+throwable.getLocalizedMessage());
             }
         });
     }

@@ -26,6 +26,8 @@ public interface ListContract {
         void showLoading(boolean loading);
 
         void showPosts(List<Post> posts);
+
+        void showError(String error);
     }
 
     interface Model {

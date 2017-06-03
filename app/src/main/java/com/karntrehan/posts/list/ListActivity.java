@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.karntrehan.posts.PostApp;
 import com.karntrehan.posts.R;
@@ -72,5 +73,10 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
     @Override
     public void showPosts(List<Post> posts) {
         listAdapter.setPosts(posts);
+    }
+
+    @Override
+    public void showError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 }

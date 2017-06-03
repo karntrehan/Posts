@@ -50,6 +50,8 @@ dependencies {
     final OKHTTP = '3.8.0';
     /*https://github.com/facebook/stetho#download*/
     final STETHO = '1.5.0'
+    /*https://github.com/pushtorefresh/storio#download*/
+    final STORIO = '1.13.0'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -73,6 +75,9 @@ dependencies {
     compile "com.facebook.stetho:stetho-okhttp3:$STETHO"
 
     //ORM
+    compile "com.pushtorefresh.storio:sqlite:$STORIO"
+    compile "com.pushtorefresh.storio:sqlite-annotations:$STORIO"
+    annotationProcessor "com.pushtorefresh.storio:sqlite-annotations-processor:$STORIO"
 
 
     //Unit testing
