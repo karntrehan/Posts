@@ -9,6 +9,7 @@ import com.karntrehan.posts.base.di.DaggerAppComponent;
 import com.karntrehan.posts.list.di.ListComponent;
 import com.karntrehan.posts.list.di.ListModule;
 
+
 /**
  * Created by karn on 03-06-2017.
  */
@@ -20,8 +21,13 @@ public class PostApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initORM();
         initDagger();
         initStetho();
+    }
+
+    private void initORM() {
+        //TODO
     }
 
     private void initStetho() {

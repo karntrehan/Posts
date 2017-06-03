@@ -72,6 +72,9 @@ dependencies {
     compile "com.facebook.stetho:stetho:$STETHO"
     compile "com.facebook.stetho:stetho-okhttp3:$STETHO"
 
+    //ORM
+
+
     //Unit testing
     testCompile "junit:junit:$JUNIT"
 

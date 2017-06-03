@@ -25,5 +25,4 @@ public class AppModule {
     Context application() {
         return postApp.getApplicationContext();
     }
-
 }

@@ -51,12 +51,14 @@ public class ListPresenter implements ListContract.Presenter {
             @Override
             public void onSuccessLocal(List<Post> response) {
                 posts = response;
+                //Log.d(TAG, "onSuccessLocal: " + posts.toString());
                 view.showPosts(posts);
             }
 
             @Override
             public void onSuccessSync(List<Post> response) {
                 posts = response;
+                Log.d(TAG, "onSuccessSync: " + posts.toString());
                 if (isViewReady()) {
                     view.showLoading(false);
                     view.showPosts(posts);
