@@ -1,5 +1,8 @@
 package com.karntrehan.posts.list.di;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import javax.inject.Scope;
 
 /**

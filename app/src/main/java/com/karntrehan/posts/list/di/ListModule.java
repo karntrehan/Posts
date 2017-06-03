@@ -1,5 +1,8 @@
 package com.karntrehan.posts.list.di;
 
+import android.content.Context;
+
+import com.karntrehan.posts.list.ListAdapter;
 import com.karntrehan.posts.list.ListContract;
 import com.karntrehan.posts.list.ListModel;
 import com.karntrehan.posts.list.ListPresenter;
@@ -20,8 +23,12 @@ public class ListModule {
     }
 
     @Provides
-    ListContract.Presenter presenter(ListContract.Model model)
-    {
+    ListContract.Presenter presenter(ListContract.Model model) {
         return new ListPresenter(model);
+    }
+
+    @Provides
+    ListAdapter listAdapter(ListContract.Presenter presenter) {
+        return new ListAdapter(presenter);
     }
 }

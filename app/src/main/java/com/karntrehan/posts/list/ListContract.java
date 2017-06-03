@@ -1,6 +1,6 @@
 package com.karntrehan.posts.list;
 
-import com.karntrehan.posts.base.callback.ValidationCallback;
+import com.karntrehan.posts.base.callback.StatefulCallback;
 import com.karntrehan.posts.list.entity.Post;
 
 import java.util.List;
@@ -23,12 +23,12 @@ public interface ListContract {
     }
 
     interface View {
-        void showloading(boolean loading);
+        void showLoading(boolean loading);
 
-        void showPosts(List<Object> posts);
+        void showPosts(List<Post> posts);
     }
 
     interface Model {
-        void loadPosts(ValidationCallback<List<Object>> validationCallback);
+        void loadPosts(StatefulCallback<List<Post>> statefulCallback);
     }
 }
