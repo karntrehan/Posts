@@ -1,7 +1,6 @@
 package com.karntrehan.posts.list;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.karntrehan.posts.base.callback.StatefulCallback;
 import com.karntrehan.posts.list.ListContract.Model;
@@ -16,15 +15,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+
 /**
  * Created by karn on 03-06-2017.
  */
 
 public class ListModel implements Model {
 
-    private static final String TAG = "ListModel";
-    private final ListService listService;
-    private final StorIOSQLite storIOSQLite;
+    private ListService listService;
+    private StorIOSQLite storIOSQLite;
 
     public ListModel(Retrofit retrofit, StorIOSQLite storIOSQLite) {
         listService = retrofit.create(ListService.class);
@@ -51,7 +50,6 @@ public class ListModel implements Model {
                                    @NonNull Response<List<Post>> response) {
                 if (response.isSuccessful()) {
                     final List<Post> posts = response.body();
-                    Log.d(TAG, "onResponse: " + posts);
                     if (posts != null)
                         storIOSQLite
                                 .put()

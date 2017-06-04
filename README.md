@@ -14,12 +14,10 @@ Some of the features of the app include
   
   - `Transitions` - Shared element transitions are used whenever they make the experience better. `API 21+`
   
-  - `Rotation persistance` - Due to the `scoped` injection of elements, rotation of the device does not rerun db or server calls.
-
 # Decisions
   - `Sub-Modules` vs `Modules` - I decided to go ahead with `Sub-Module` as all our modules ,`List` and `Detail`, directly depend on `AppComponent`'s injections to function correctly.
   
-  - `SugarORM` - The initial intuition was to go with `Room` as I wanted to play around with it, but it would require AS 3.0 to build. As it could require some waiting time to set that up for others, I decided to go ahead with `SugarORM` because it was second on my list of ORMs to play with. I am happy with its performance too for this simple usecase. I can use relationships better I think, but for now this suffices.
+  - `SugarORM` - The initial intuition was to go with `Room` as I wanted to play around with it, but it would require AS 3.0 to build. As it could require some waiting time to set that up for others, I decided to go ahead with `SugarORM` because it was second on my list of ORMs to play with. I am happy with its performance too for this simple usecase.
   
   - `MVP vs Clean` - MVP is a personal preference. 
   

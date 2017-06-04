@@ -33,14 +33,5 @@ public class DetailModule {
         return new DetailsPresenter(model);
     }
 
-    @Provides
-    @DetailScope
-    Picasso picasso(Context context, OkHttpClient okHttpClient)
-    {
-        return new Picasso.Builder(context)
-                .downloader(new OkHttp3Downloader(okHttpClient))
-                .build();
-    }
-
 
 }

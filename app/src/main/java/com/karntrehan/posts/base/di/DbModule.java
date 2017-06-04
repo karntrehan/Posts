@@ -2,7 +2,6 @@ package com.karntrehan.posts.base.di;
 
 import android.content.Context;
 
-import com.karntrehan.posts.PostApp;
 import com.karntrehan.posts.base.db.DbOpenHelper;
 import com.karntrehan.posts.details.entity.Comment;
 import com.karntrehan.posts.details.entity.CommentSQLiteTypeMapping;
@@ -17,20 +16,23 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by karn on 03-06-2017.
+ * Created by karn on 04-06-2017.
  */
-@Module
-public class AppModule {
 
-    private final PostApp postApp;
+@Module(includes = AppModule.class)
+public class DbModule {
 
-    public AppModule(PostApp postApp) {
-        this.postApp = postApp;
-    }
-
+    //Provices the StorIOSqlite instance used by StorIo to perform actions on the underlaying
+    // SQLite database
     @Provides
     @AppScope
-    Context application() {
-        return postApp.getApplicationContext();
+    StorIOSQLite storIOSQLite(Context context) {
+        return DefaultStorIOSQLite.builder()
+                .sqliteOpenHelper(new DbOpenHelper(context))
+                .addTypeMapping(Post.class, new PostSQLiteTypeMapping())
+                .addTypeMapping(Comment.class, new CommentSQLiteTypeMapping())
+                .addTypeMapping(User.class, new UserSQLiteTypeMapping())
+                .build();
     }
+
 }
