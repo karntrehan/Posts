@@ -37,7 +37,14 @@ public class Post implements Parcelable {
     @SerializedName("body")
     String postBody;
 
-    Post() {
+    public Post() {
+    }
+
+    public Post(int userId, int postId, String postTitle, String postBody) {
+        this.userId = userId;
+        this.postId = postId;
+        this.postTitle = postTitle;
+        this.postBody = postBody;
     }
 
     protected Post(Parcel in) {

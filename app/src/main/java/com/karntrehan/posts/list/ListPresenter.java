@@ -45,26 +45,21 @@ public class ListPresenter implements ListContract.Presenter {
 
     @Override
     public void getPosts() {
-        Log.d(TAG, "getPosts: ");
         view.showLoading(true);
         model.loadPosts(new StatefulCallback<List<Post>>() {
             @Override
             public void onSuccessLocal(List<Post> response) {
                 posts = response;
-                //Log.d(TAG, "onSuccessLocal: " + posts.toString());
-                Log.d(TAG, "onSuccessLocal: "+isViewReady());
                 view.showPosts(posts);
             }
 
             @Override
             public void onSuccessSync(List<Post> response) {
                 posts = response;
-                Log.d(TAG, "onSuccessSync: "+isViewReady());
                 if (isViewReady()) {
                     view.showLoading(false);
                     view.showPosts(posts);
                 }
-                Log.d(TAG, "onSuccessSync: "+isViewReady());
             }
 
             @Override
@@ -89,11 +84,10 @@ public class ListPresenter implements ListContract.Presenter {
 
     @Override
     public void postClicked(int position, Post post, ListAdapter.ViewHolder holder) {
-        Log.d(TAG, "postClicked: "+isViewReady());
         view.showPostDetail(position,post,holder);
     }
 
-    private boolean isViewReady() {
+    protected boolean isViewReady() {
         return view != null;
     }
 }

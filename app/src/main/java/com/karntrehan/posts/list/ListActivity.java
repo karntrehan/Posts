@@ -97,7 +97,6 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
     @SuppressWarnings("unchecked")
     @Override
     public void showPostDetail(int position, Post post, ListAdapter.ViewHolder holder) {
-        Log.d(TAG, "showPostDetail: " + position);
         Intent intent = new Intent(this, DetailsActivity.class);
         intent.putExtra(Constants.POST_SEL, post);
         intent.putExtra(Constants.TITLE_TRANSITION_NAME, ViewCompat.getTransitionName(holder.binding.tvTitle));
