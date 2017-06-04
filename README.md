@@ -5,17 +5,26 @@ A sample app to demonstrate the building of a good and scalable Android app. The
 Some of the features of the app include
 
   - `MVP architecture` -> The `presenter` acts as the communication agent between a somewhat dumb `view` and the data aware / intelligent `model`.
+  
   - `Offline first architecture` -> All the data is first tried to be loaded from the db and then updated from the server. This ensures that the app is usable even in an offline mode. See `StatefulCallback` for working.
+  
   - `Dependency Injection` -> Common elements like `context`, `networking` interface are injected using `Dagger 2`
+  
   - `Data binding` -> Data binding is used to bind xml elements to the java counterparts. No logic part is added to the xml though, as it makes code really hard to read.
+  
   - `Transitions` - Shared element transitions are used whenever they make the experience better. `API 21+`
+  
   - `Rotation persistance` - Due to the `scoped` injection of elements, rotation of the device does not rerun db or server calls.
 
 # Decisions
 
   - `Sub-Modules` vs `Modules` - I decided to go ahead with `Sub-Module` as all our modules ,`List` and `Detail`, directly depend on `AppComponent`'s injections to function correctly.
+  
   - `SugarORM` - The initial intuition was to go with `Room` as I wanted to play around with it, but it would require AS 3.0 to build. As it could require some waiting time to set that up for others, I decided to go ahead with `SugarORM` because it was second on my list of ORMs to play with. I am happy with its performance too for this simple usecase. I can use relationships better I think, but for now this suffices.
+  
   - `MVP vs Clean` - MVP is a personal preference. 
+  
+  - `Feature based packaging` - This screen-wise / feature-wise packaging makes code really easy to read and debug. 
 
 # Build info:
   - Android Studio - 2.3.1

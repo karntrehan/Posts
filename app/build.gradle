@@ -56,6 +56,12 @@ dependencies {
     final PICASSO = '2.5.2'
     /*https://github.com/JakeWharton/picasso2-okhttp3-downloader#download*/
     final PICASSO_DOWNLOADER = '1.1.0'
+    /*https://github.com/mockito/mockito*/
+    final MOCKITO = '1.10.19'
+    /*http://search.maven.org/#search%7Cga%7C1%7Cg%3Aorg.hamcrest*/
+    final HAMCREST = '1.3'
+    /*http://powermock.github.io/*/
+    final POWERMOCK = '1.6.6'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -88,6 +94,10 @@ dependencies {
 
     //Unit testing
     testCompile "junit:junit:$JUNIT"
+    testCompile "org.mockito:mockito-all:$MOCKITO"
+    testCompile "org.hamcrest:hamcrest-all:$HAMCREST"
+    testCompile "org.powermock:powermock-module-junit4:$POWERMOCK"
+    testCompile "org.powermock:powermock-api-mockito:$POWERMOCK"
 
     //Instrumented Testing
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
