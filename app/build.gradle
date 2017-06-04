@@ -40,8 +40,6 @@ dependencies {
 
     /*https://developer.android.com/topic/libraries/support-library/revisions.html*/
     final SUPPORT_VERSION = '25.3.1';
-    /*https://mvnrepository.com/artifact/junit/junit*/
-    final JUNIT = '4.12';
     /*https://github.com/google/dagger#dagger-2*/
     final DAGGER = '2.11';
     /*http://square.github.io/retrofit/#Download*/
@@ -56,12 +54,10 @@ dependencies {
     final PICASSO = '2.5.2'
     /*https://github.com/JakeWharton/picasso2-okhttp3-downloader#download*/
     final PICASSO_DOWNLOADER = '1.1.0'
+    /*https://mvnrepository.com/artifact/junit/junit*/
+    final JUNIT = '4.12';
     /*https://github.com/mockito/mockito*/
     final MOCKITO = '1.10.19'
-    /*http://search.maven.org/#search%7Cga%7C1%7Cg%3Aorg.hamcrest*/
-    final HAMCREST = '1.3'
-    /*http://powermock.github.io/*/
-    final POWERMOCK = '1.6.6'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -88,22 +84,18 @@ dependencies {
     compile "com.pushtorefresh.storio:sqlite-annotations:$STORIO"
     annotationProcessor "com.pushtorefresh.storio:sqlite-annotations-processor:$STORIO"
 
-    //IMAGE LOADING
+    //Image loading
     compile "com.squareup.picasso:picasso:$PICASSO"
     compile "com.jakewharton.picasso:picasso2-okhttp3-downloader:$PICASSO_DOWNLOADER"
 
     //Unit testing
     testCompile "junit:junit:$JUNIT"
     testCompile "org.mockito:mockito-all:$MOCKITO"
-    testCompile "org.hamcrest:hamcrest-all:$HAMCREST"
-    testCompile "org.powermock:powermock-module-junit4:$POWERMOCK"
-    testCompile "org.powermock:powermock-api-mockito:$POWERMOCK"
 
-    //Instrumented Testing
+    //Instrumented Testing - For future use
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
 

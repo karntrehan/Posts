@@ -1,6 +1,5 @@
 package com.karntrehan.posts.base.di;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.karntrehan.posts.PostApp;
@@ -16,8 +15,6 @@ import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
 
 import dagger.Module;
 import dagger.Provides;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by karn on 03-06-2017.

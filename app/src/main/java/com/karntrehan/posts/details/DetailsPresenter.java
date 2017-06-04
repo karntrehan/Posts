@@ -7,8 +7,6 @@ import com.karntrehan.posts.list.entity.Post;
 
 import retrofit2.Response;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * Created by karn on 03-06-2017.
  */

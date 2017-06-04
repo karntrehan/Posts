@@ -17,7 +17,6 @@ Some of the features of the app include
   - `Rotation persistance` - Due to the `scoped` injection of elements, rotation of the device does not rerun db or server calls.
 
 # Decisions
-
   - `Sub-Modules` vs `Modules` - I decided to go ahead with `Sub-Module` as all our modules ,`List` and `Detail`, directly depend on `AppComponent`'s injections to function correctly.
   
   - `SugarORM` - The initial intuition was to go with `Room` as I wanted to play around with it, but it would require AS 3.0 to build. As it could require some waiting time to set that up for others, I decided to go ahead with `SugarORM` because it was second on my list of ORMs to play with. I am happy with its performance too for this simple usecase. I can use relationships better I think, but for now this suffices.
@@ -26,13 +25,21 @@ Some of the features of the app include
   
   - `Feature based packaging` - This screen-wise / feature-wise packaging makes code really easy to read and debug. 
 
-# Build info:
+# Testing:
+### Unit Testing
+The `ListPresenterTest` has the implementation of unit tests. Mockito and JUnit have been used for testing. The tests can be build from the 
+command line using `gradlew test`. The output of the test will be available in `app\build\test-results\testDebugUnitTest`
+
+### Manual Testing
+The app has been manually tested on `Nexus 5 (API 24)` (highend) 
+and `Micromax (API 19)` (lowend) devices.
+
+# Build info: 
   - Android Studio - 2.3.1
   - Compile SDK - 25
   - MinSDK - 16, Target - 25
 
 # Libraries used
-
 * Support Libraries
 * Dagger 2
 * Retrofit

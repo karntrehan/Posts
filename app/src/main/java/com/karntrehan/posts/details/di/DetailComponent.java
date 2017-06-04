@@ -2,8 +2,6 @@ package com.karntrehan.posts.details.di;
 
 
 import com.karntrehan.posts.details.DetailsActivity;
-import com.karntrehan.posts.list.ListActivity;
-import com.karntrehan.posts.list.di.ListModule;
 
 import dagger.Subcomponent;
 

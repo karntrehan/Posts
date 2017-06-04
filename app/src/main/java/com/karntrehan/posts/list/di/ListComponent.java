@@ -5,8 +5,6 @@ import com.karntrehan.posts.list.ListActivity;
 
 import dagger.Subcomponent;
 
-import static android.R.attr.mode;
-
 /**
  * Created by karn on 03-06-2017.
  */

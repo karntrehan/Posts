@@ -1,8 +1,10 @@
 package com.karntrehan.posts.base.db;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 
-import com.karntrehan.posts.PostApp;
 import com.karntrehan.posts.details.entity.Comment;
 import com.karntrehan.posts.details.entity.User;
 import com.karntrehan.posts.list.entity.Post;
@@ -10,11 +12,6 @@ import com.karntrehan.posts.list.entity.Post;
 /**
  * Created by karn on 03-06-2017.
  */
-
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.NonNull;
 
 /**
  * Created by karan on 26/1/17.

@@ -1,6 +1,5 @@
 package com.karntrehan.posts.list;
 
-import android.text.TextUtils;
 
 import com.karntrehan.posts.base.callback.StatefulCallback;
 import com.karntrehan.posts.list.entity.Post;
@@ -10,21 +9,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.InOrder;
-import org.mockito.Matchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 import static com.karntrehan.posts.utils.TestUtil.print;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
 /**

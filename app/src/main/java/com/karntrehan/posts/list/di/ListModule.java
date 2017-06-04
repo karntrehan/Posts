@@ -1,14 +1,10 @@
 package com.karntrehan.posts.list.di;
 
-import android.content.Context;
-
 import com.karntrehan.posts.list.ListAdapter;
 import com.karntrehan.posts.list.ListContract;
 import com.karntrehan.posts.list.ListModel;
 import com.karntrehan.posts.list.ListPresenter;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
-
-import java.util.List;
 
 import dagger.Module;
 import dagger.Provides;

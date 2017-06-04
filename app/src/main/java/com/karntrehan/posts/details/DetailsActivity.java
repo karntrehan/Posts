@@ -2,9 +2,8 @@ package com.karntrehan.posts.details;
 
 import android.databinding.DataBindingUtil;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -17,9 +16,6 @@ import com.karntrehan.posts.list.entity.Post;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
-
-import static android.R.attr.id;
-import static android.R.attr.visibility;
 
 public class DetailsActivity extends AppCompatActivity implements DetailsContract.View {
 

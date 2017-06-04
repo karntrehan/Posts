@@ -3,23 +3,15 @@ package com.karntrehan.posts.base.di;
 import android.content.Context;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.GsonBuilder;
 import com.karntrehan.posts.BuildConfig;
-import com.karntrehan.posts.PostApp;
 import com.karntrehan.posts.base.Constants;
 
-import java.io.IOException;
-import java.lang.reflect.Modifier;
 import java.util.concurrent.TimeUnit;
 
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

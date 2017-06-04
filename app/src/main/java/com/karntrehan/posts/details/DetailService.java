@@ -2,8 +2,6 @@ package com.karntrehan.posts.details;
 
 import com.karntrehan.posts.details.entity.Comment;
 import com.karntrehan.posts.details.entity.User;
-import com.karntrehan.posts.list.entity.Post;
-
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.karntrehan.posts.details.entity;
 
 import com.google.gson.annotations.SerializedName;
-import com.karntrehan.posts.list.entity.Post;
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
 
