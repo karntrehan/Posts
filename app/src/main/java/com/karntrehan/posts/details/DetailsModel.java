@@ -57,7 +57,7 @@ public class DetailsModel implements DetailsContract.Model {
         details.setCommentCount(commentCount);
         detailsStatefulCallback.onSuccessLocal(details);
 
-        Call<List<User>> getUserCall = detailService.getUser(post.getPostId());
+        Call<List<User>> getUserCall = detailService.getUser(post.getUserId());
         getUserCall.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(@NonNull Call<List<User>> call,
