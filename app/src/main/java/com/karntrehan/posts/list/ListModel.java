@@ -23,8 +23,8 @@ import retrofit2.Retrofit;
 public class ListModel implements Model {
 
     private static final String TAG = "ListModel";
-    private ListService listService;
-    private StorIOSQLite storIOSQLite;
+    private final ListService listService;
+    private final StorIOSQLite storIOSQLite;
 
     public ListModel(Retrofit retrofit, StorIOSQLite storIOSQLite) {
         listService = retrofit.create(ListService.class);

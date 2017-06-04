@@ -34,6 +34,8 @@ public class AppModule {
         return postApp.getApplicationContext();
     }
 
+    //Provices the StorIOSqlite instance used by StorIo to perform actions on the underlaying
+    // SQLite database
     @Provides
     @AppScope
     StorIOSQLite storIOSQLite() {

@@ -14,10 +14,9 @@ import retrofit2.Response;
 public class DetailsPresenter implements DetailsContract.Presenter {
 
     private DetailsContract.View view;
-    private DetailsContract.Model model;
-    Details details;
+    private final DetailsContract.Model model;
+    private Details details;
 
-    private static final String TAG = "DetailsPresenter";
 
     public DetailsPresenter(DetailsContract.Model model) {
         this.model = model;
@@ -35,7 +34,6 @@ public class DetailsPresenter implements DetailsContract.Presenter {
 
     @Override
     public void getPostDetails(Post post) {
-        Log.d(TAG, "getPostDetails: "+post.toString());
         if (details != null)
             view.showPostDetails(details);
         else {

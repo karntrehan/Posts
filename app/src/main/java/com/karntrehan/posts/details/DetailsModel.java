@@ -22,9 +22,8 @@ import retrofit2.Retrofit;
 
 public class DetailsModel implements DetailsContract.Model {
 
-    private static final String TAG = "DetailsModel";
-    private DetailService detailService;
-    private StorIOSQLite storIOSQLite;
+    private final DetailService detailService;
+    private final StorIOSQLite storIOSQLite;
 
     public DetailsModel(Retrofit retrofit, StorIOSQLite storIOSQLite) {
         detailService = retrofit.create(DetailService.class);
@@ -36,6 +35,7 @@ public class DetailsModel implements DetailsContract.Model {
         //Fist try to load local details
         final Details details = new Details();
 
+        //Get user for the post
         final User user = storIOSQLite.get().object(User.class).withQuery(Query.builder()
                 .table(User.TABLE_NAME)
                 .where("user_id = ?").whereArgs(post.getUserId())
@@ -46,6 +46,7 @@ public class DetailsModel implements DetailsContract.Model {
             details.setUserAvatarFromEmail(user.getEmail());
         }
 
+        //Get comment count for the post
         final long commentCount = storIOSQLite.get().numberOfResults().withQuery(Query.builder()
                 .table(Comment.TABLE_NAME)
                 .where("post_id = ?")
@@ -55,8 +56,10 @@ public class DetailsModel implements DetailsContract.Model {
                 .executeAsBlocking();
 
         details.setCommentCount(commentCount);
+        //Send local response back to the presenter
         detailsStatefulCallback.onSuccessLocal(details);
 
+        //Go to the server to get the user details from the server for this post
         Call<List<User>> getUserCall = detailService.getUser(post.getUserId());
         getUserCall.enqueue(new Callback<List<User>>() {
             @Override
@@ -73,6 +76,7 @@ public class DetailsModel implements DetailsContract.Model {
                                 .executeAsBlocking();
                         details.setUserName(users.get(0).getName());
                         details.setUserAvatarFromEmail(users.get(0).getEmail());
+                        detailsStatefulCallback.onSuccessSync(details);
                     }
                 } else detailsStatefulCallback.onValidationError(response);
             }
@@ -83,6 +87,7 @@ public class DetailsModel implements DetailsContract.Model {
             }
         });
 
+        //Go to the server and get the latest comments from the server for this post
         Call<List<Comment>> getCommentsCall = detailService.getComments(post.getPostId());
         getCommentsCall.enqueue(new Callback<List<Comment>>() {
             @Override

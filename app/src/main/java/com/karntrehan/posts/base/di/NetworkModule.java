@@ -17,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by karn on 03-06-2017.
+ * Provides the network related interfaces like Retrofit and OKHttpClient.
  */
 
 @Module(includes = AppModule.class)
@@ -45,6 +46,7 @@ public class NetworkModule {
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS);
+        //Add StethoInterceptor only when app is in debug mode
         if (BuildConfig.DEBUG) {
             client.addNetworkInterceptor(new StethoInterceptor());
         }
@@ -54,7 +56,7 @@ public class NetworkModule {
     @AppScope
     @Provides
     Cache cache(Context context) {
-        int cacheSize = 10 * 1024 * 1024; // 10 MiB
+        int cacheSize = 10 * 1024 * 1024; // 10 MB
         return new Cache(context.getCacheDir(), cacheSize);
     }
 }

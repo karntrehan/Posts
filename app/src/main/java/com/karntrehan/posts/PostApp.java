@@ -14,6 +14,8 @@ import com.karntrehan.posts.list.di.ListModule;
 
 /**
  * Created by karn on 03-06-2017.
+ * The first class to run when the app is launched. Should initiate the dagger components
+ * and other libraries.
  */
 
 public class PostApp extends Application {
@@ -23,25 +25,22 @@ public class PostApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        initORM();
         initDagger();
         initStetho();
     }
 
-    private void initORM() {
-        //TODO
-    }
-
-    private void initStetho() {
-        if (BuildConfig.DEBUG)
-            Stetho.initializeWithDefaults(this);
-    }
-
     private void initDagger() {
+        //Initialize the dagger app component with the application context
         appComponent = DaggerAppComponent
                 .builder()
                 .appModule(new AppModule(this))
                 .build();
+    }
+
+    private void initStetho() {
+        //Activate stetho only if the app is in debug mode
+        if (BuildConfig.DEBUG)
+            Stetho.initializeWithDefaults(this);
     }
 
     public ListComponent createListComponent() {
