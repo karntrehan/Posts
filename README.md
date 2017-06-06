@@ -14,6 +14,8 @@ Some of the features of the app include
   
   - `Transitions` - Shared element transitions are used whenever they make the experience better. `API 21+`
   
+  - `Configuration aware persistance` - If the configuration of the device is changed, the presenter does not re-run the db or server query.
+  
 # Decisions
   - `Sub-Modules` vs `Modules` - I decided to go ahead with `Sub-Module` as all our modules ,`List` and `Detail`, directly depend on `AppComponent`'s injections to function correctly.
   

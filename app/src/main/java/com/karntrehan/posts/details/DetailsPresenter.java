@@ -34,9 +34,10 @@ public class DetailsPresenter implements DetailsContract.Presenter {
 
     @Override
     public void getPostDetails(Post post) {
-        if (details != null)
+        if (details != null) {
+            view.showLoading(false);
             view.showPostDetails(details);
-        else {
+        } else {
             view.showLoading(true);
             model.loadPostDetails(post, new StatefulCallback<Details>() {
                 @Override

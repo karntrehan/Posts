@@ -21,6 +21,8 @@ import com.karntrehan.posts.list.di.ListModule;
 public class PostApp extends Application {
 
     AppComponent appComponent;
+    ListComponent listComponent;
+    DetailComponent detailComponent;
 
     @Override
     public void onCreate() {
@@ -44,10 +46,14 @@ public class PostApp extends Application {
     }
 
     public ListComponent createListComponent() {
-        return appComponent.plus(new ListModule());
+        if (listComponent == null)
+            listComponent = appComponent.plus(new ListModule());
+        return listComponent;
     }
 
     public DetailComponent createDetailComponent() {
-        return appComponent.plus(new DetailModule());
+        if (detailComponent == null)
+            detailComponent = appComponent.plus(new DetailModule());
+        return detailComponent;
     }
 }
