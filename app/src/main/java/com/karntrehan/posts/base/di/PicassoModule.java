@@ -3,7 +3,6 @@ package com.karntrehan.posts.base.di;
 import android.content.Context;
 
 import com.jakewharton.picasso.OkHttp3Downloader;
-import com.karntrehan.posts.details.di.DetailScope;
 import com.squareup.picasso.Picasso;
 
 import dagger.Module;

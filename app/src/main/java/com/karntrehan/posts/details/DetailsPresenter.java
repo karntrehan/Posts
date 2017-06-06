@@ -1,7 +1,5 @@
 package com.karntrehan.posts.details;
 
-import android.util.Log;
-
 import com.karntrehan.posts.base.callback.StatefulCallback;
 import com.karntrehan.posts.list.entity.Post;
 

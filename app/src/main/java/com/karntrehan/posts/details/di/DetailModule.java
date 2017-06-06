@@ -1,17 +1,12 @@
 package com.karntrehan.posts.details.di;
 
-import android.content.Context;
-
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.karntrehan.posts.details.DetailsContract;
 import com.karntrehan.posts.details.DetailsModel;
 import com.karntrehan.posts.details.DetailsPresenter;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
-import com.squareup.picasso.Picasso;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
 /**

@@ -1,7 +1,5 @@
 package com.karntrehan.posts.list;
 
-import android.util.Log;
-
 import com.karntrehan.posts.base.callback.StatefulCallback;
 import com.karntrehan.posts.list.entity.Post;
 
@@ -20,8 +18,6 @@ public class ListPresenter implements ListContract.Presenter {
     private final ListContract.Model model;
 
     private List<Post> posts;
-
-    private static final String TAG = "ListPresenter";
 
     public ListPresenter(ListContract.Model model) {
         this.model = model;
@@ -46,7 +42,6 @@ public class ListPresenter implements ListContract.Presenter {
 
     @Override
     public void getPosts() {
-        Log.d(TAG, "getPosts: ");
         view.showLoading(true);
         model.loadPosts(new StatefulCallback<List<Post>>() {
             @Override
