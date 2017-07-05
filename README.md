@@ -19,7 +19,7 @@ Some of the features of the app include
 # Decisions
   - `Sub-Modules` vs `Modules` - I decided to go ahead with `Sub-Module` as all our modules ,`List` and `Detail`, directly depend on `AppComponent`'s injections to function correctly.
   
-  - `SugarORM` - The initial intuition was to go with `Room` as I wanted to play around with it, but it would require AS 3.0 to build. As it could require some waiting time to set that up for others, I decided to go ahead with `SugarORM` because it was second on my list of ORMs to play with. I am happy with its performance too for this simple usecase.
+  - `StorIO` - The initial intuition was to go with `Room` as I wanted to play around with it, but it would require AS 3.0 to build. As it could require some waiting time to set that up for others, I decided to go ahead with `StorIO` because it was second on my list of ORMs to play with. I am happy with its performance too for this simple usecase.
   
   - `MVP vs Clean` - MVP is a personal preference. 
   
