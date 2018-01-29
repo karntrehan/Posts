@@ -16,6 +16,8 @@ import io.reactivex.subjects.PublishSubject
 class ListRepository(private val postDb: PostDb, private val postService: PostService) {
 
     val postFetchOutcome: PublishSubject<Outcome<List<Post>>> = PublishSubject.create<Outcome<List<Post>>>()
+
+    //Need to perform a remoteFetch or not?
     private var remoteFetch = true
 
     fun refreshPosts(compositeDisposable: CompositeDisposable) {
@@ -30,6 +32,7 @@ class ListRepository(private val postDb: PostDb, private val postService: PostSe
     }
 
     private fun handleSuccess(retailers: List<Post>) {
+        //Insert all the remote entries into the db
         Completable.fromAction { postDb.postDao().insertAll(retailers) }
                 .performOnBackOutOnMain()
                 .subscribe()
@@ -37,6 +40,7 @@ class ListRepository(private val postDb: PostDb, private val postService: PostSe
 
     fun fetchPosts(compositeDisposable: CompositeDisposable) {
         postFetchOutcome.loading(true)
+        //Observe changes to the db
         compositeDisposable.add(postDb.postDao().getAll()
                 .performOnBackOutOnMain()
                 .subscribe({ retailers ->

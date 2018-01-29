@@ -45,21 +45,24 @@ class ListActivity : AppCompatActivity() {
     }
 
     private fun initiateDataListener() {
+        //Observe the outcome and update state of the screen  accordingly
         storesViewModel.postsOutcome.observe(this, Observer<Outcome<List<Post>>> { outcome ->
             when (outcome) {
-                is Outcome.Progress -> {
-                    srlPosts.isRefreshing = outcome.loading
-                    }
+
+                is Outcome.Progress -> srlPosts.isRefreshing = outcome.loading
+
                 is Outcome.Success -> {
                     Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                     adapter.setData(outcome.data)
                 }
+
                 is Outcome.Failure -> {
                     if (outcome.e is IOException)
                         Toast.makeText(context, R.string.need_internet_posts, Toast.LENGTH_LONG).show()
                     else
                         Toast.makeText(context, R.string.failed_post_try_again, Toast.LENGTH_LONG).show()
                 }
+
             }
         })
     }

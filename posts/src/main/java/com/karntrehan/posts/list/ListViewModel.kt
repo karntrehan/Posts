@@ -12,6 +12,7 @@ class ListViewModel(private val repo: ListRepository) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     val postsOutcome: LiveData<Outcome<List<Post>>> by lazy {
+        //Convert publish subject to livedata
         repo.postFetchOutcome.toLiveData(compositeDisposable)
     }
 
@@ -26,6 +27,7 @@ class ListViewModel(private val repo: ListRepository) : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
+        //clear the disposables when the viewmodel is cleared
         compositeDisposable.clear()
     }
 

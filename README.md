@@ -20,6 +20,10 @@ Some of the features of the app include
 
  - `Feature based packaging` - This screen-wise / feature-wise packaging makes code really easy to read and debug.
 
+# Networking
+![Data flow Diagram](DataFlow.png)
+
+
 # Testing:
 TODO
 
