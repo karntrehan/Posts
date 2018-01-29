@@ -1,11 +1,88 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.versions = [
+            'minSdk'           : 16,
+            'compileSdk'       : 27,
+
+            'buildTools'       : '27.0.2',
+            'androidPlugin'    : '3.1.0-alpha08',
+            'kotlin'           : '1.2.20',
+            'archComp'         : '1.0.0',
+            'room'         : '1.0.0',
+            'roomRx'         : '1.0.0',
+            'gms'              : '3.1.0',
+            'dagger'           : '2.12',
+            'retrofit'         : '2.3.0',
+            'retrofitRxAdapter': '1.0.0',
+            'okhttp'           : '3.9.0',
+            'okhttpDownloader' : '1.1.0',
+            'picasso'          : '2.5.2',
+            'rxJava'           : '2.1.7',
+            'rxAndroid'        : '2.0.1',
+            'stetho'           : '1.5.0',
+            'junit'            : '4.12',
+            'testRunner'       : '1.0.1',
+            'espressoCore'     : '3.0.1',
+            'sourceCompat'     : JavaVersion.VERSION_1_8,
+            'targetCompat'     : JavaVersion.VERSION_1_8
+    ]
+
+    ext.deps = [
+            android   : [
+                    'gradlePlugin'   : "com.android.tools.build:gradle:${versions.androidPlugin}",
+                    'lifecycleExt'   : "android.arch.lifecycle:extensions:${versions.archComp}",
+                    'lifecycleCommon': "android.arch.lifecycle:common-java8:${versions.archComp}",
+                    'roomRuntime': "android.arch.persistence.room:runtime:${versions.room}",
+                    'roomCompiler': "android.arch.persistence.room:compiler:${versions.room}",
+                    'roomRx': "android.arch.persistence.room:rxjava2:${versions.roomRx}",
+            ],
+            support   : [
+                    'appCompat'   : "com.android.support:appcompat-v7:${versions.buildTools}",
+                    'recyclerView': "com.android.support:recyclerview-v7:${versions.buildTools}",
+                    'cardView': "com.android.support:cardview-v7:${versions.buildTools}",
+                    'support'     : "com.android.support:support-v4:${versions.buildTools}",
+            ],
+            kotlin    : [
+                    'gradlePlugin': "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}",
+                    'stdlib'      : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}",
+            ],
+            reactivex : [
+                    'rxJava'   : "io.reactivex.rxjava2:rxjava:${versions.rxJava}",
+                    'rxAndroid': "io.reactivex.rxjava2:rxandroid:${versions.rxAndroid}"
+            ],
+            google    : [
+                    'gmsPlugin'      : "com.google.gms:google-services:${versions.gms}",
+                    'dagger'         : "com.google.dagger:dagger:${versions.dagger}",
+                    'daggerProcessor': "com.google.dagger:dagger-compiler:${versions.dagger}",
+            ],
+            square    : [
+                    'retrofit'         : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+                    'gsonConverter'    : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
+                    'okhttp'           : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+                    'picasso'          : "com.squareup.picasso:picasso:${versions.picasso}",
+                    'okhttpDownloader' : "com.jakewharton.picasso:picasso2-okhttp3-downloader:${versions.okhttpDownloader}",
+                    'retrofitRxAdapter': "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${versions.retrofitRxAdapter}",
+            ],
+            facebook  : [
+                    'stetho'            : "com.facebook.stetho:stetho:${versions.stetho}",
+                    'networkInterceptor': "com.facebook.stetho:stetho-okhttp3:${versions.stetho}"
+            ],
+            test      : [
+                    'junit'       : "junit:junit:${versions.junit}",
+                    'testRunner'  : "com.android.support.test:runner:${versions.testRunner}",
+                    'espressoCore': "com.android.support.test.espresso:espresso-core:${versions.espressoCore}"
+            ]
+    ]
+
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath deps.android.gradlePlugin
+        classpath deps.google.gmsPlugin
+        classpath deps.kotlin.gradlePlugin
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -14,8 +91,8 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
-        maven { url "https://www.jitpack.io" }
     }
 }
 
