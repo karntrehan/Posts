@@ -35,9 +35,9 @@ class NetworkModule {
     fun providesOkHttpClient(cache: Cache): OkHttpClient {
         val client = OkHttpClient.Builder()
                 .cache(cache)
-                .connectTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
 
         if (BuildConfig.DEBUG)
             client.addNetworkInterceptor(StethoInterceptor())

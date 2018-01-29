@@ -13,7 +13,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 
 
-class ListRepository(private val postDb: PostDb,  private val postService: PostService) {
+class ListRepository(private val postDb: PostDb, private val postService: PostService) {
 
     val postFetchOutcome: PublishSubject<Outcome<List<Post>>> = PublishSubject.create<Outcome<List<Post>>>()
     private var remoteFetch = true

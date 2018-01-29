@@ -15,8 +15,3 @@ fun <T> Flowable<T>.performOnBackOutOnMain():  Flowable<T> {
     return  this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 }
-
-fun <T> Single<T>.performOnBackOutOnMain(): Single<T> {
-    return  this.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-}
