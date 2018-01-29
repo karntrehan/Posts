@@ -1,0 +1,76 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            postprocessing {
+                removeUnusedCode false
+                removeUnusedResources false
+                obfuscate false
+                optimizeCode false
+                proguardFile 'proguard-rules.pro'
+            }
+            buildConfigField 'String', 'BASE_URL', '"http://jsonplaceholder.typicode.com/"'
+        }
+        debug {
+            buildConfigField 'String', 'BASE_URL', '"http://jsonplaceholder.typicode.com/"'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility versions.sourceCompat
+        targetCompatibility versions.targetCompat
+    }
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api deps.support.appCompat
+    api deps.support.recyclerView
+    api deps.support.cardView
+    api deps.support.support
+
+    api deps.android.lifecycleExt
+    api deps.android.lifecycleCommon
+    api deps.android.roomRuntime
+    api deps.android.roomRx
+
+    api deps.kotlin.stdlib
+
+    api deps.reactivex.rxJava
+    api deps.reactivex.rxAndroid
+
+    api deps.google.dagger
+    kapt deps.google.daggerProcessor
+
+    api deps.square.picasso
+    api deps.square.okhttpDownloader
+
+    api deps.square.retrofit
+    api deps.square.okhttp
+    api deps.square.gsonConverter
+    api deps.square.retrofitRxAdapter
+
+    implementation deps.facebook.stetho
+    implementation deps.facebook.networkInterceptor
+
+    testApi deps.test.junit
+    androidTestApi deps.test.testRunner
+    androidTestApi deps.test.espressoCore
+}
