@@ -23,6 +23,87 @@ Some of the features of the app include
 # Networking
 ![Data flow Diagram](DataFlow.png)
 
+### [Activity](posts/src/main/java/com/karntrehan/posts/list/ListActivity.kt)
+```java
+storesViewModel.getPosts()
+```
+
+### [ViewModel](posts/src/main/java/com/karntrehan/posts/list/ListViewModel.kt)
+```java
+fun getPosts() {
+    if (postsOutcome.value == null)
+        repo.fetchPosts(compositeDisposable)
+}
+```
+
+###  [Repository](posts/src/main/java/com/karntrehan/posts/list/ListRepository.kt)
+```java
+val postFetchOutcome: PublishSubject<Outcome<List<Post>>> = PublishSubject.create<Outcome<List<Post>>>()
+
+fun fetchPosts(compositeDisposable: CompositeDisposable) {
+    postFetchOutcome.loading(true)
+    //Observe changes to the db
+    compositeDisposable.add(postDb.postDao().getAll()
+            .performOnBackOutOnMain()
+            .subscribe({ retailers ->
+                postFetchOutcome.success(retailers)
+                if (remoteFetch)
+                    refreshPosts(compositeDisposable)
+                remoteFetch = false
+            }, { error -> handleError(error) })
+    )
+}
+
+fun refreshPosts(compositeDisposable: CompositeDisposable) {
+    postFetchOutcome.loading(true)
+    compositeDisposable.add(postService.getPosts()
+            .performOnBackOutOnMain()
+            .subscribe({ retailers -> handleSuccess(retailers) }, { error -> handleError(error) }))
+}
+
+private fun handleError(error: Throwable) {
+    postFetchOutcome.failed(error)
+}
+
+private fun handleSuccess(retailers: List<Post>) {
+    //Insert all the remote entries into the db
+    Completable.fromAction { postDb.postDao().insertAll(retailers) }
+            .performOnBackOutOnMain()
+            .subscribe()
+}
+```
+
+[ViewModel](posts/src/main/java/com/karntrehan/posts/list/ListViewModel.kt)
+```java
+val postsOutcome: LiveData<Outcome<List<Post>>> by lazy {
+    //Convert publish subject to livedata
+    repo.postFetchOutcome.toLiveData(compositeDisposable)
+}
+```
+
+###  [Activity](posts/src/main/java/com/karntrehan/posts/list/ListActivity.kt)
+```java
+storesViewModel.postsOutcome.observe(this, Observer<Outcome<List<Post>>> { outcome ->
+        when (outcome) {
+
+            is Outcome.Progress -> srlPosts.isRefreshing = outcome.loading
+
+            is Outcome.Success -> {
+                Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
+                adapter.setData(outcome.data)
+            }
+
+            is Outcome.Failure -> {
+                if (outcome.e is IOException)
+                    Toast.makeText(context, R.string.need_internet_posts, Toast.LENGTH_LONG).show()
+                else
+                    Toast.makeText(context, R.string.failed_post_try_again, Toast.LENGTH_LONG).show()
+            }
+
+        }
+    })
+```
+
 
 # Testing:
 TODO

@@ -20,6 +20,20 @@ class ListRepository(private val postDb: PostDb, private val postService: PostSe
     //Need to perform a remoteFetch or not?
     private var remoteFetch = true
 
+    fun fetchPosts(compositeDisposable: CompositeDisposable) {
+        postFetchOutcome.loading(true)
+        //Observe changes to the db
+        compositeDisposable.add(postDb.postDao().getAll()
+                .performOnBackOutOnMain()
+                .subscribe({ retailers ->
+                    postFetchOutcome.success(retailers)
+                    if (remoteFetch)
+                        refreshPosts(compositeDisposable)
+                    remoteFetch = false
+                }, { error -> handleError(error) })
+        )
+    }
+
     fun refreshPosts(compositeDisposable: CompositeDisposable) {
         postFetchOutcome.loading(true)
         compositeDisposable.add(postService.getPosts()
@@ -36,19 +50,5 @@ class ListRepository(private val postDb: PostDb, private val postService: PostSe
         Completable.fromAction { postDb.postDao().insertAll(retailers) }
                 .performOnBackOutOnMain()
                 .subscribe()
-    }
-
-    fun fetchPosts(compositeDisposable: CompositeDisposable) {
-        postFetchOutcome.loading(true)
-        //Observe changes to the db
-        compositeDisposable.add(postDb.postDao().getAll()
-                .performOnBackOutOnMain()
-                .subscribe({ retailers ->
-                    postFetchOutcome.success(retailers)
-                    if (remoteFetch)
-                        refreshPosts(compositeDisposable)
-                    remoteFetch = false
-                }, { error -> handleError(error) })
-        )
     }
 }
