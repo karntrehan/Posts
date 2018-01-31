@@ -10,6 +10,7 @@ import com.karntrehan.posts.list.ListRepository
 import com.karntrehan.posts.list.data.ListViewModelFactory
 import com.karntrehan.posts.list.data.local.PostDb
 import com.karntrehan.posts.list.data.remote.PostService
+import com.squareup.picasso.Picasso
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -28,7 +29,7 @@ class ListModule {
     /*Adapter*/
     @Provides
     @ListScope
-    fun adapter(): ListAdapter = ListAdapter()
+    fun adapter(picasso: Picasso): ListAdapter = ListAdapter(picasso)
 
     /*ViewModel*/
     @Provides

@@ -1,24 +1,31 @@
 package com.karntrehan.posts.list
 
+import android.util.Log
 import com.karntrehan.posts.core.extensions.failed
 import com.karntrehan.posts.core.extensions.loading
 import com.karntrehan.posts.core.extensions.performOnBackOutOnMain
 import com.karntrehan.posts.core.extensions.success
+import com.karntrehan.posts.list.data.PostWithUser
 import com.karntrehan.posts.list.data.local.Post
 import com.karntrehan.posts.list.data.local.PostDb
+import com.karntrehan.posts.list.data.local.User
 import com.karntrehan.posts.list.data.remote.PostService
 import com.mpaani.core.networking.Outcome
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.PublishSubject
 
 
 class ListRepository(private val postDb: PostDb, private val postService: PostService) {
 
-    val postFetchOutcome: PublishSubject<Outcome<List<Post>>> = PublishSubject.create<Outcome<List<Post>>>()
+    val postFetchOutcome: PublishSubject<Outcome<List<PostWithUser>>> = PublishSubject.create<Outcome<List<PostWithUser>>>()
 
     //Need to perform a remoteFetch or not?
     private var remoteFetch = true
+
+    private val TAG = "ListRepository"
 
     fun fetchPosts(compositeDisposable: CompositeDisposable) {
         postFetchOutcome.loading(true)
@@ -36,19 +43,27 @@ class ListRepository(private val postDb: PostDb, private val postService: PostSe
 
     fun refreshPosts(compositeDisposable: CompositeDisposable) {
         postFetchOutcome.loading(true)
-        compositeDisposable.add(postService.getPosts()
+        compositeDisposable.add(
+                Flowable.zip(
+                        postService.getUsers(),
+                        postService.getPosts(),
+                        BiFunction<List<User>, List<Post>, Unit> { t1, t2 -> saveUsersAndPosts(t1, t2) }
+                )
+                        .performOnBackOutOnMain()
+                        .subscribe({}, { error -> handleError(error) }))
+    }
+
+    private fun saveUsersAndPosts(users: List<User>, posts: List<Post>) {
+        Completable.fromAction {
+            postDb.userDao().insertAll(users)
+            postDb.postDao().insertAll(posts)
+        }
                 .performOnBackOutOnMain()
-                .subscribe({ retailers -> handleSuccess(retailers) }, { error -> handleError(error) }))
+                .subscribe()
     }
 
     private fun handleError(error: Throwable) {
         postFetchOutcome.failed(error)
     }
 
-    private fun handleSuccess(retailers: List<Post>) {
-        //Insert all the remote entries into the db
-        Completable.fromAction { postDb.postDao().insertAll(retailers) }
-                .performOnBackOutOnMain()
-                .subscribe()
-    }
 }

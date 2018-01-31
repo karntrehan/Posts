@@ -13,7 +13,7 @@ object ListDH {
         return component as ListComponent
     }
 
-    fun distroy() {
+    fun destroy() {
         component = null
     }
 }

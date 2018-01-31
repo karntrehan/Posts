@@ -5,19 +5,20 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import com.karntrehan.posts.R
+import com.karntrehan.posts.details.DetailsActivity
 import com.karntrehan.posts.list.data.ListViewModelFactory
-import com.karntrehan.posts.list.data.local.Post
+import com.karntrehan.posts.list.data.PostWithUser
 import com.karntrehan.posts.list.di.ListDH
 import com.mpaani.core.networking.Outcome
 import kotlinx.android.synthetic.main.activity_list.*
 import java.io.IOException
 import javax.inject.Inject
 
-class ListActivity : AppCompatActivity() {
-
+class ListActivity : AppCompatActivity(), ListAdapter.PostInteractor {
     private val component by lazy { ListDH.component() }
 
     @Inject
@@ -30,6 +31,8 @@ class ListActivity : AppCompatActivity() {
 
     private val context: Context by lazy { this }
 
+    private val TAG = "ListActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
@@ -37,6 +40,7 @@ class ListActivity : AppCompatActivity() {
 
         setUpToolbar()
 
+        adapter.interactor = this
         rvPosts.adapter = adapter
         srlPosts.setOnRefreshListener { storesViewModel.refreshPosts() }
 
@@ -46,7 +50,8 @@ class ListActivity : AppCompatActivity() {
 
     private fun initiateDataListener() {
         //Observe the outcome and update state of the screen  accordingly
-        storesViewModel.postsOutcome.observe(this, Observer<Outcome<List<Post>>> { outcome ->
+        storesViewModel.postsOutcome.observe(this, Observer<Outcome<List<PostWithUser>>> { outcome ->
+            Log.d(TAG, "initiateDataListener: " + outcome.toString())
             when (outcome) {
 
                 is Outcome.Progress -> srlPosts.isRefreshing = outcome.loading
@@ -71,12 +76,6 @@ class ListActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onStop() {
-        super.onStop()
-        if (this.isFinishing)
-            ListDH.distroy()
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
@@ -84,4 +83,9 @@ class ListActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun postClicked(postId: Int) {
+        DetailsActivity.start(context, postId)
+    }
+
 }
