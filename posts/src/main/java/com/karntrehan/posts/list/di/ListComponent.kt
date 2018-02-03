@@ -7,9 +7,9 @@ import com.karntrehan.posts.core.di.CoreComponent
 import com.karntrehan.posts.list.ListActivity
 import com.karntrehan.posts.list.ListAdapter
 import com.karntrehan.posts.list.ListRepository
-import com.karntrehan.posts.list.data.ListViewModelFactory
-import com.karntrehan.posts.list.data.local.PostDb
-import com.karntrehan.posts.list.data.remote.PostService
+import com.karntrehan.posts.list.ListViewModelFactory
+import com.karntrehan.posts.commons.data.local.PostDb
+import com.karntrehan.posts.commons.data.remote.PostService
 import com.squareup.picasso.Picasso
 import dagger.Component
 import dagger.Module
@@ -19,6 +19,14 @@ import retrofit2.Retrofit
 @ListScope
 @Component(dependencies = [CoreComponent::class], modules = [ListModule::class])
 interface ListComponent {
+
+    //Expose to dependent components
+    fun postDb(): PostDb
+
+    fun postService(): PostService
+
+    fun picasso(): Picasso
+
     fun inject(listActivity: ListActivity)
 }
 

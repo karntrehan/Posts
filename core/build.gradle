@@ -45,6 +45,7 @@ dependencies {
     api deps.support.recyclerView
     api deps.support.cardView
     api deps.support.support
+    api deps.support.designSupport
 
     api deps.android.lifecycleExt
     api deps.android.lifecycleCommon

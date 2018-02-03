@@ -1,15 +1,14 @@
 package com.karntrehan.posts.list
 
-import android.util.Log
 import com.karntrehan.posts.core.extensions.failed
 import com.karntrehan.posts.core.extensions.loading
 import com.karntrehan.posts.core.extensions.performOnBackOutOnMain
 import com.karntrehan.posts.core.extensions.success
-import com.karntrehan.posts.list.data.PostWithUser
-import com.karntrehan.posts.list.data.local.Post
-import com.karntrehan.posts.list.data.local.PostDb
-import com.karntrehan.posts.list.data.local.User
-import com.karntrehan.posts.list.data.remote.PostService
+import com.karntrehan.posts.commons.data.PostWithUser
+import com.karntrehan.posts.commons.data.local.Post
+import com.karntrehan.posts.commons.data.local.PostDb
+import com.karntrehan.posts.commons.data.local.User
+import com.karntrehan.posts.commons.data.remote.PostService
 import com.mpaani.core.networking.Outcome
 import io.reactivex.Completable
 import io.reactivex.Flowable

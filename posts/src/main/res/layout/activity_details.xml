@@ -1,86 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".details.DetailsActivity">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cvPost"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/abAuth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/card_margin"
-        app:cardBackgroundColor="@android:color/white"
-        app:contentPadding="@dimen/card_padding">
+        android:background="@android:color/transparent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <LinearLayout
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/ctlAuth"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@android:color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <TextView
-                android:id="@+id/tvTitle"
-                style="@style/Base.TextAppearance.AppCompat.Large"
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvPost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
-                tools:text="Title to post" />
+                android:layout_margin="@dimen/card_margin"
+                app:cardBackgroundColor="@android:color/white"
+                app:contentPadding="@dimen/card_padding">
 
-            <TextView
-                android:id="@+id/tvBody"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/def_small_margin"
-                android:layout_marginTop="@dimen/def_small_margin"
-                tools:text="Body to post" />
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#333133" />
-
-            <RelativeLayout
-                android:id="@+id/rlUserDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <ImageView
-                    android:id="@+id/ivAvatar"
-                    android:layout_width="@dimen/def_avatar_size"
-                    android:layout_height="@dimen/def_avatar_size"
-                    android:contentDescription="@string/user_image"
-                    android:scaleType="centerCrop"
-                    tools:background="@mipmap/ic_launcher" />
-
-                <TextView
-                    android:id="@+id/tvAuthorName"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/ivAvatar"
-                    android:layout_toRightOf="@+id/ivAvatar"
-                    android:padding="@dimen/card_padding"
-                    tools:text="Karan Trehan" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        style="@style/Base.TextAppearance.AppCompat.Large"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        tools:text="Title to post" />
 
-            <TextView
-                android:id="@+id/tvCommentCounter"
-                style="@style/actionable_text"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:visibility="gone"
-                tools:text="See all 56 comments >"
-                tools:visibility="visible" />
+                    <TextView
+                        android:id="@+id/tvBody"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/def_small_margin"
+                        android:layout_marginTop="@dimen/def_small_margin"
+                        android:textColor="@color/secondary_text"
+                        tools:text="Body to post" />
 
-        </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#333133" />
 
-</FrameLayout>
+                    <RelativeLayout
+                        android:id="@+id/rlUserDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/card_margin"
+                        tools:visibility="visible">
+
+                        <ImageView
+                            android:id="@+id/ivAvatar"
+                            android:layout_width="@dimen/def_avatar_size"
+                            android:layout_height="@dimen/def_avatar_size"
+                            android:contentDescription="@string/user_image"
+                            android:scaleType="centerCrop"
+                            tools:background="@mipmap/ic_launcher" />
+
+                        <TextView
+                            android:id="@+id/tvAuthorName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/ivAvatar"
+                            android:layout_toRightOf="@+id/ivAvatar"
+                            android:padding="@dimen/card_padding"
+                            android:textColor="@color/secondary_text"
+                            tools:text="Karan Trehan" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srlComments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvComments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/comment_item" />
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
