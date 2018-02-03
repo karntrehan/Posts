@@ -38,7 +38,9 @@ fun getPosts() {
 
 ###  [Repository](posts/src/main/java/com/karntrehan/posts/list/ListRepository.kt)
 ```java
-val postFetchOutcome: PublishSubject<Outcome<List<Post>>> = PublishSubject.create<Outcome<List<Post>>>()
+val postFetchOutcome: PublishSubject<Outcome<List<PostWithUser>>> = PublishSubject.create<Outcome<List<PostWithUser>>>()
+
+private val TAG = "ListRepository"
 
 fun fetchPosts(compositeDisposable: CompositeDisposable) {
     postFetchOutcome.loading(true)
@@ -56,24 +58,31 @@ fun fetchPosts(compositeDisposable: CompositeDisposable) {
 
 fun refreshPosts(compositeDisposable: CompositeDisposable) {
     postFetchOutcome.loading(true)
-    compositeDisposable.add(postService.getPosts()
+    compositeDisposable.add(
+            Flowable.zip(
+                    postService.getUsers(),
+                    postService.getPosts(),
+                    BiFunction<List<User>, List<Post>, Unit> { t1, t2 -> saveUsersAndPosts(t1, t2) }
+            )
+                    .performOnBackOutOnMain()
+                    .subscribe({}, { error -> handleError(error) }))
+}
+
+private fun saveUsersAndPosts(users: List<User>, posts: List<Post>) {
+    Completable.fromAction {
+        postDb.userDao().insertAll(users)
+        postDb.postDao().insertAll(posts)
+    }
             .performOnBackOutOnMain()
-            .subscribe({ retailers -> handleSuccess(retailers) }, { error -> handleError(error) }))
+            .subscribe()
 }
 
 private fun handleError(error: Throwable) {
     postFetchOutcome.failed(error)
 }
-
-private fun handleSuccess(retailers: List<Post>) {
-    //Insert all the remote entries into the db
-    Completable.fromAction { postDb.postDao().insertAll(retailers) }
-            .performOnBackOutOnMain()
-            .subscribe()
-}
 ```
 
-[ViewModel](posts/src/main/java/com/karntrehan/posts/list/ListViewModel.kt)
+### [ViewModel](posts/src/main/java/com/karntrehan/posts/list/ListViewModel.kt) ###
 ```java
 val postsOutcome: LiveData<Outcome<List<Post>>> by lazy {
     //Convert publish subject to livedata
@@ -114,7 +123,7 @@ TODO
   - MinSDK - 16, Target - 27
 
 # Libraries used
-* Support Libraries
+* Android Support Libraries
 * Dagger 2
 * Retrofit
 * OkHttp
