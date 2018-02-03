@@ -3,7 +3,8 @@ package com.karntrehan.posts.list
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import com.karntrehan.posts.core.extensions.toLiveData
-import com.karntrehan.posts.list.data.local.Post
+import com.karntrehan.posts.commons.data.PostWithUser
+import com.karntrehan.posts.commons.PostDH
 import com.mpaani.core.networking.Outcome
 import io.reactivex.disposables.CompositeDisposable
 
@@ -11,7 +12,9 @@ class ListViewModel(private val repo: ListRepository) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    val postsOutcome: LiveData<Outcome<List<Post>>> by lazy {
+    private val TAG = "ListViewModel"
+
+    val postsOutcome: LiveData<Outcome<List<PostWithUser>>> by lazy {
         //Convert publish subject to livedata
         repo.postFetchOutcome.toLiveData(compositeDisposable)
     }
@@ -29,6 +32,6 @@ class ListViewModel(private val repo: ListRepository) : ViewModel() {
         super.onCleared()
         //clear the disposables when the viewmodel is cleared
         compositeDisposable.clear()
+        PostDH.destroyListComponent()
     }
-
 }

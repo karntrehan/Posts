@@ -4,21 +4,22 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
+import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.karntrehan.posts.R
-import com.karntrehan.posts.list.data.ListViewModelFactory
-import com.karntrehan.posts.list.data.local.Post
-import com.karntrehan.posts.list.di.ListDH
+import com.karntrehan.posts.core.application.BaseActivity
+import com.karntrehan.posts.details.DetailsActivity
+import com.karntrehan.posts.commons.data.PostWithUser
+import com.karntrehan.posts.commons.PostDH
 import com.mpaani.core.networking.Outcome
 import kotlinx.android.synthetic.main.activity_list.*
 import java.io.IOException
 import javax.inject.Inject
 
-class ListActivity : AppCompatActivity() {
-
-    private val component by lazy { ListDH.component() }
+class ListActivity : BaseActivity(), ListAdapter.PostInteractor {
+    private val component by lazy { PostDH.listComponent() }
 
     @Inject
     lateinit var viewModelFactory: ListViewModelFactory
@@ -26,27 +27,29 @@ class ListActivity : AppCompatActivity() {
     @Inject
     lateinit var adapter: ListAdapter
 
-    private val storesViewModel: ListViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(ListViewModel::class.java) }
+    private val viewModel: ListViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(ListViewModel::class.java) }
 
     private val context: Context by lazy { this }
+
+    private val TAG = "ListActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
         component.inject(this)
 
-        setUpToolbar()
-
+        adapter.interactor = this
         rvPosts.adapter = adapter
-        srlPosts.setOnRefreshListener { storesViewModel.refreshPosts() }
+        srlPosts.setOnRefreshListener { viewModel.refreshPosts() }
 
-        storesViewModel.getPosts()
+        viewModel.getPosts()
         initiateDataListener()
     }
 
     private fun initiateDataListener() {
         //Observe the outcome and update state of the screen  accordingly
-        storesViewModel.postsOutcome.observe(this, Observer<Outcome<List<Post>>> { outcome ->
+        viewModel.postsOutcome.observe(this, Observer<Outcome<List<PostWithUser>>> { outcome ->
+            Log.d(TAG, "initiateDataListener: " + outcome.toString())
             when (outcome) {
 
                 is Outcome.Progress -> srlPosts.isRefreshing = outcome.loading
@@ -67,21 +70,8 @@ class ListActivity : AppCompatActivity() {
         })
     }
 
-    private fun setUpToolbar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    override fun postClicked(post: PostWithUser, tvTitle: TextView, tvBody: TextView, tvAuthorName: TextView, ivAvatar: ImageView) {
+        DetailsActivity.start(context, post,tvTitle,tvBody,tvAuthorName,ivAvatar)
     }
 
-    override fun onStop() {
-        super.onStop()
-        if (this.isFinishing)
-            ListDH.distroy()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        if (id == android.R.id.home) {
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }

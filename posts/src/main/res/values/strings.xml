@@ -3,4 +3,5 @@
     <string name="know_more">Know More ></string>
     <string name="need_internet_posts">Need internet to fetch latest posts!</string>
     <string name="failed_post_try_again">Failed to load posts. Please try again later.</string>
+    <string name="user_image">User\'s Avatar Image</string>
 </resources>

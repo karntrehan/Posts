@@ -34,7 +34,35 @@
             android:maxLines="2"
             tools:text="Body to post" />
 
+        <RelativeLayout
+            android:id="@+id/rlUserDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/def_small_margin">
+
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="@dimen/def_small_avatar_size"
+                android:layout_height="@dimen/def_small_avatar_size"
+                android:contentDescription="@string/user_image"
+                android:scaleType="centerCrop"
+                tools:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/tvAuthorName"
+                style="@style/Base.TextAppearance.AppCompat.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/ivAvatar"
+                android:layout_toRightOf="@+id/ivAvatar"
+                android:padding="@dimen/card_padding"
+                tools:text="Karan Trehan" />
+
+        </RelativeLayout>
+
         <TextView
+            android:id="@+id/tvKnowMore"
             style="@style/actionable_text"
             android:text="@string/know_more" />
 

@@ -42,6 +42,7 @@ buildscript {
                     'recyclerView': "com.android.support:recyclerview-v7:${versions.buildTools}",
                     'cardView': "com.android.support:cardview-v7:${versions.buildTools}",
                     'support'     : "com.android.support:support-v4:${versions.buildTools}",
+                    'designSupport'     : "com.android.support:design:${versions.buildTools}",
             ],
             kotlin    : [
                     'gradlePlugin': "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}",
