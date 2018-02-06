@@ -127,8 +127,7 @@ class DetailsActivity : BaseActivity() {
                 is Outcome.Progress -> srlComments.isRefreshing = outcome.loading
 
                 is Outcome.Success -> {
-                    Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
-                    Log.d(TAG, "observeData: " + outcome.data)
+                    Log.d(TAG, "observeData:  Successfully loaded data")
                     adapter.setData(outcome.data)
                 }
 

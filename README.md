@@ -20,6 +20,9 @@ Some of the features of the app include
 
  - `Feature based packaging` - This screen-wise / feature-wise packaging makes code really easy to read and debug.
 
+# Working
+![Working](posts.gif)
+
 # Networking
 ![Data flow Diagram](DataFlow.png)
 
@@ -123,16 +126,17 @@ TODO
   - MinSDK - 16, Target - 27
 
 # Libraries used
-* Android Support Libraries
-* Dagger 2
-* Retrofit
-* OkHttp
-* Stetho
-* Room
-* ViewModel
-* LiveData
-* RxJava
-* RxAndroid
+* [Android Support Libraries](https://developer.android.com/topic/libraries/support-library/index.html)
+* [Dagger 2](https://google.github.io/dagger/)
+* [Retrofit](http://square.github.io/retrofit/)
+* [OkHttp](http://square.github.io/okhttp/)
+* [Picasso](square.github.io/picasso/)
+* [Stetho](http://facebook.github.io/stetho/)
+* [Room](https://developer.android.com/topic/libraries/architecture/room.html)
+* [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html)
+* [LiveData](https://developer.android.com/topic/libraries/architecture/livedata.html)
+* [RxJava](https://github.com/ReactiveX/RxJava)
+* [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 
 # License
 

@@ -55,7 +55,7 @@ class ListActivity : BaseActivity(), ListAdapter.PostInteractor {
                 is Outcome.Progress -> srlPosts.isRefreshing = outcome.loading
 
                 is Outcome.Success -> {
-                    Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
+                    Log.d(TAG, "initiateDataListener: Successfully loaded data")
                     adapter.setData(outcome.data)
                 }
 

@@ -7,7 +7,7 @@ import io.reactivex.Flowable
 
 @Dao
 interface PostDao {
-    @Query("SELECT post.postId AS postId, post.postTitle AS postTitle ,post.postBody AS postBody, user.userName as userName FROM post, user WHERE post.userId= user.userId")
+    @Query("SELECT post.postId AS postId, post.postTitle AS postTitle ,post.postBody AS postBody, user.userName as userName FROM post, user WHERE post.userId= user.id")
     fun getAll(): Flowable<List<PostWithUser>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

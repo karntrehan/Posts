@@ -38,8 +38,6 @@ androidExtensions {
 
 dependencies {
     implementation project(':core')
-
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     kapt deps.android.roomCompiler
     kapt deps.google.daggerProcessor
 
