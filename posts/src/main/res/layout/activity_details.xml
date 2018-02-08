@@ -85,6 +85,16 @@
 
                     </RelativeLayout>
 
+                    <TextView
+                        android:id="@+id/tvCommentError"
+                        style="@style/Base.TextAppearance.AppCompat.Small"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/no_comments_error"
+                        android:textColor="@color/error_text"
+                        android:visibility="gone" />
+
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>

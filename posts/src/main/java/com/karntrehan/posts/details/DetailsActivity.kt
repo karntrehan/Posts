@@ -20,6 +20,7 @@ import com.karntrehan.posts.commons.PostDH
 import com.karntrehan.posts.core.application.BaseActivity
 import com.karntrehan.posts.commons.data.PostWithUser
 import com.karntrehan.posts.commons.data.local.Comment
+import com.karntrehan.posts.details.exceptions.DetailsExceptions
 import com.mpaani.core.networking.Outcome
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_details.*
@@ -128,14 +129,16 @@ class DetailsActivity : BaseActivity() {
 
                 is Outcome.Success -> {
                     Log.d(TAG, "observeData:  Successfully loaded data")
+                    tvCommentError.visibility = View.GONE
                     adapter.setData(outcome.data)
                 }
 
                 is Outcome.Failure -> {
-                    if (outcome.e is IOException)
-                        Toast.makeText(context, R.string.need_internet_posts, Toast.LENGTH_LONG).show()
-                    else
-                        Toast.makeText(context, R.string.failed_post_try_again, Toast.LENGTH_LONG).show()
+                    when (outcome.e) {
+                        DetailsExceptions.NoCommentsException() -> tvCommentError.visibility = View.VISIBLE
+                        IOException() -> Toast.makeText(context, R.string.need_internet_posts, Toast.LENGTH_LONG).show()
+                        else -> Toast.makeText(context, R.string.failed_post_try_again, Toast.LENGTH_LONG).show()
+                    }
                 }
 
             }

@@ -4,4 +4,7 @@
     <string name="need_internet_posts">Need internet to fetch latest posts!</string>
     <string name="failed_post_try_again">Failed to load posts. Please try again later.</string>
     <string name="user_image">User\'s Avatar Image</string>
+    <string name="movieImage">movie</string>
+    <string name="button_trailers">b</string>
+    <string name="no_comments_error">No comments found for this post!</string>
 </resources>

@@ -7,6 +7,7 @@ import com.karntrehan.posts.core.extensions.failed
 import com.karntrehan.posts.core.extensions.loading
 import com.karntrehan.posts.core.extensions.performOnBackOutOnMain
 import com.karntrehan.posts.core.extensions.success
+import com.karntrehan.posts.details.exceptions.DetailsExceptions
 import com.mpaani.core.networking.Outcome
 import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
@@ -43,11 +44,14 @@ class DetailsRepository(val postDb: PostDb, val postService: PostService) {
     }
 
     private fun saveCommentsForPost(comments: List<Comment>) {
-        Completable.fromAction {
-            postDb.commentDao().insertAll(comments)
-        }
-                .performOnBackOutOnMain()
-                .subscribe()
+        if (comments.isNotEmpty()) {
+            Completable.fromAction {
+                postDb.commentDao().insertAll(comments)
+            }
+                    .performOnBackOutOnMain()
+                    .subscribe()
+        } else
+            commentsFetchOutcome.failed(DetailsExceptions.NoCommentsException())
     }
 
     private fun handleError(error: Throwable) {

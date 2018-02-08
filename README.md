@@ -28,7 +28,7 @@ Some of the features of the app include
 
 ### [Activity](posts/src/main/java/com/karntrehan/posts/list/ListActivity.kt)
 ```java
-storesViewModel.getPosts()
+viewModel.getPosts()
 ```
 
 ### [ViewModel](posts/src/main/java/com/karntrehan/posts/list/ListViewModel.kt)
@@ -95,13 +95,13 @@ val postsOutcome: LiveData<Outcome<List<Post>>> by lazy {
 
 ###  [Activity](posts/src/main/java/com/karntrehan/posts/list/ListActivity.kt)
 ```java
-storesViewModel.postsOutcome.observe(this, Observer<Outcome<List<Post>>> { outcome ->
+viewModel.postsOutcome.observe(this, Observer<Outcome<List<Post>>> { outcome ->
         when (outcome) {
 
             is Outcome.Progress -> srlPosts.isRefreshing = outcome.loading
 
             is Outcome.Success -> {
-                Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
+                Log.d(TAG, "initiateDataListener: Successfully loaded data")
                 adapter.setData(outcome.data)
             }
 
