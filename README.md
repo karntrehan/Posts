@@ -48,27 +48,28 @@ private val TAG = "ListRepository"
 fun fetchPosts(compositeDisposable: CompositeDisposable) {
     postFetchOutcome.loading(true)
     //Observe changes to the db
-    compositeDisposable.add(postDb.postDao().getAll()
+    postDb.postDao().getAll()
             .performOnBackOutOnMain()
             .subscribe({ retailers ->
                 postFetchOutcome.success(retailers)
                 if (remoteFetch)
                     refreshPosts(compositeDisposable)
                 remoteFetch = false
-            }, { error -> handleError(error) })
+            }, { error -> handleError(error) }
+            .addTo(compositeDisposable)
     )
 }
 
 fun refreshPosts(compositeDisposable: CompositeDisposable) {
     postFetchOutcome.loading(true)
-    compositeDisposable.add(
-            Flowable.zip(
-                    postService.getUsers(),
-                    postService.getPosts(),
-                    BiFunction<List<User>, List<Post>, Unit> { t1, t2 -> saveUsersAndPosts(t1, t2) }
-            )
-                    .performOnBackOutOnMain()
-                    .subscribe({}, { error -> handleError(error) }))
+        Flowable.zip(
+                postService.getUsers(),
+                postService.getPosts(),
+                BiFunction<List<User>, List<Post>, Unit> { t1, t2 -> saveUsersAndPosts(t1, t2) }
+        )
+                .performOnBackOutOnMain()
+                .subscribe({}, { error -> handleError(error) })
+                .addTo(compositeDisposable)
 }
 
 private fun saveUsersAndPosts(users: List<User>, posts: List<Post>) {

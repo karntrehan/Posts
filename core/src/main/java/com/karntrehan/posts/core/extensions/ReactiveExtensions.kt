@@ -6,6 +6,8 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -30,4 +32,11 @@ fun <T> Flowable<T>.performOnBackOutOnMain(): Flowable<T> {
 fun <T> Observable<T>.performOnBackOutOnMain(): Observable<T> {
     return this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+}
+
+/**
+ * Extension function to add a Disposable to a CompositeDisposable
+ */
+fun Disposable.addTo(compositeDisposable: CompositeDisposable) {
+    compositeDisposable.add(this)
 }
