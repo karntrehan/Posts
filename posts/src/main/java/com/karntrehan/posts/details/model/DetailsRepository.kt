@@ -1,28 +1,28 @@
-package com.karntrehan.posts.details
+package com.karntrehan.posts.details.model
 
 import com.karntrehan.posts.commons.data.local.Comment
-import com.karntrehan.posts.commons.data.local.PostDb
-import com.karntrehan.posts.commons.data.remote.PostService
 import com.karntrehan.posts.core.extensions.*
+import com.karntrehan.posts.core.networking.Scheduler
 import com.karntrehan.posts.details.exceptions.DetailsExceptions
 import com.mpaani.core.networking.Outcome
-import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 
-class DetailsRepository(val postDb: PostDb, val postService: PostService) {
+class DetailsRepository(private val local: DetailsDataContract.Local,
+                        private val remote: DetailsDataContract.Remote,
+                        private val scheduler: Scheduler) : DetailsDataContract.Repository {
 
-    val commentsFetchOutcome: PublishSubject<Outcome<List<Comment>>> = PublishSubject.create<Outcome<List<Comment>>>()
+    override val commentsFetchOutcome: PublishSubject<Outcome<List<Comment>>> = PublishSubject.create<Outcome<List<Comment>>>()
 
     var remoteFetch = true
 
-    fun fetchCommentsFor(postId: Int?, compositeDisposable: CompositeDisposable) {
+    override fun fetchCommentsFor(postId: Int?, compositeDisposable: CompositeDisposable) {
         if (postId == null)
             return
 
         commentsFetchOutcome.loading(true)
-        postDb.commentDao().getForPost(postId)
-                .performOnBackOutOnMain()
+        local.getCommentsForPost(postId)
+                .performOnBackOutOnMain(scheduler)
                 .subscribe({ retailers ->
                     commentsFetchOutcome.success(retailers)
                     if (remoteFetch)
@@ -32,27 +32,22 @@ class DetailsRepository(val postDb: PostDb, val postService: PostService) {
                 .addTo(compositeDisposable)
     }
 
-    fun refreshComments(postId: Int, compositeDisposable: CompositeDisposable) {
+    override fun refreshComments(postId: Int, compositeDisposable: CompositeDisposable) {
         commentsFetchOutcome.loading(true)
-        postService.getComments(postId)
-                .performOnBackOutOnMain()
+        remote.getCommentsForPost(postId)
+                .performOnBackOutOnMain(scheduler)
                 .subscribe({ comments -> saveCommentsForPost(comments) }, { error -> handleError(error) })
                 .addTo(compositeDisposable)
     }
 
-    private fun saveCommentsForPost(comments: List<Comment>) {
+    override fun saveCommentsForPost(comments: List<Comment>) {
         if (comments.isNotEmpty()) {
-            Completable.fromAction {
-                postDb.commentDao().insertAll(comments)
-            }
-                    .performOnBackOutOnMain()
-                    .subscribe()
+            local.saveComments(comments)
         } else
             commentsFetchOutcome.failed(DetailsExceptions.NoCommentsException())
     }
 
-    private fun handleError(error: Throwable) {
+    override fun handleError(error: Throwable) {
         commentsFetchOutcome.failed(error)
     }
-
 }

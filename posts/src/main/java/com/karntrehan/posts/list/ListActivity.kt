@@ -13,6 +13,8 @@ import com.karntrehan.posts.core.application.BaseActivity
 import com.karntrehan.posts.details.DetailsActivity
 import com.karntrehan.posts.commons.data.PostWithUser
 import com.karntrehan.posts.commons.PostDH
+import com.karntrehan.posts.list.viewmodel.ListViewModel
+import com.karntrehan.posts.list.viewmodel.ListViewModelFactory
 import com.mpaani.core.networking.Outcome
 import kotlinx.android.synthetic.main.activity_list.*
 import java.io.IOException

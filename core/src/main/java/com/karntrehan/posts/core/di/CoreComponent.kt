@@ -2,6 +2,7 @@ package com.karntrehan.posts.core.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.karntrehan.posts.core.networking.Scheduler
 import com.squareup.picasso.Picasso
 import dagger.Component
 import retrofit2.Retrofit
@@ -19,4 +20,5 @@ interface CoreComponent {
 
     fun sharedPreferences(): SharedPreferences
 
+    fun scheduler(): Scheduler
 }

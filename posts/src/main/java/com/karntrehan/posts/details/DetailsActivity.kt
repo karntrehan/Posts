@@ -21,6 +21,8 @@ import com.karntrehan.posts.core.application.BaseActivity
 import com.karntrehan.posts.commons.data.PostWithUser
 import com.karntrehan.posts.commons.data.local.Comment
 import com.karntrehan.posts.details.exceptions.DetailsExceptions
+import com.karntrehan.posts.details.viewmodel.DetailsViewModel
+import com.karntrehan.posts.details.viewmodel.DetailsViewModelFactory
 import com.mpaani.core.networking.Outcome
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_details.*

@@ -6,10 +6,14 @@ import com.karntrehan.posts.core.constants.Constants
 import com.karntrehan.posts.core.di.CoreComponent
 import com.karntrehan.posts.list.ListActivity
 import com.karntrehan.posts.list.ListAdapter
-import com.karntrehan.posts.list.ListRepository
-import com.karntrehan.posts.list.ListViewModelFactory
+import com.karntrehan.posts.list.model.ListRepository
+import com.karntrehan.posts.list.viewmodel.ListViewModelFactory
 import com.karntrehan.posts.commons.data.local.PostDb
 import com.karntrehan.posts.commons.data.remote.PostService
+import com.karntrehan.posts.core.networking.Scheduler
+import com.karntrehan.posts.list.model.ListDataContract
+import com.karntrehan.posts.list.model.ListLocalData
+import com.karntrehan.posts.list.model.ListRemoteData
 import com.squareup.picasso.Picasso
 import dagger.Component
 import dagger.Module
@@ -22,10 +26,9 @@ interface ListComponent {
 
     //Expose to dependent components
     fun postDb(): PostDb
-
     fun postService(): PostService
-
     fun picasso(): Picasso
+    fun scheduler(): Scheduler
 
     fun inject(listActivity: ListActivity)
 }
@@ -42,14 +45,20 @@ class ListModule {
     /*ViewModel*/
     @Provides
     @ListScope
-    fun listViewModelFactory(listRepository: ListRepository): ListViewModelFactory {
-        return ListViewModelFactory(listRepository)
-    }
+    fun listViewModelFactory(listRepository: ListRepository): ListViewModelFactory = ListViewModelFactory(listRepository)
 
     /*Repository*/
     @Provides
     @ListScope
-    fun listRepo(postDb: PostDb, postService: PostService): ListRepository = ListRepository(postDb, postService)
+    fun listRepo(local: ListDataContract.Local, remote: ListDataContract.Remote, scheduler: Scheduler): ListRepository = ListRepository(local, remote, scheduler)
+
+    @Provides
+    @ListScope
+    fun remoteData(postService: PostService): ListDataContract.Remote = ListRemoteData(postService)
+
+    @Provides
+    @ListScope
+    fun localData(postDb: PostDb, scheduler: Scheduler): ListDataContract.Local = ListLocalData(postDb, scheduler)
 
     @Provides
     @ListScope

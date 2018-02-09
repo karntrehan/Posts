@@ -1,10 +1,11 @@
-package com.karntrehan.posts.list
+package com.karntrehan.posts.list.viewmodel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import com.karntrehan.posts.core.extensions.toLiveData
 import com.karntrehan.posts.commons.data.PostWithUser
 import com.karntrehan.posts.commons.PostDH
+import com.karntrehan.posts.list.model.ListRepository
 import com.mpaani.core.networking.Outcome
 import io.reactivex.disposables.CompositeDisposable
 
