@@ -3,10 +3,7 @@ package com.karntrehan.posts.details
 import com.karntrehan.posts.commons.data.local.Comment
 import com.karntrehan.posts.commons.data.local.PostDb
 import com.karntrehan.posts.commons.data.remote.PostService
-import com.karntrehan.posts.core.extensions.failed
-import com.karntrehan.posts.core.extensions.loading
-import com.karntrehan.posts.core.extensions.performOnBackOutOnMain
-import com.karntrehan.posts.core.extensions.success
+import com.karntrehan.posts.core.extensions.*
 import com.karntrehan.posts.details.exceptions.DetailsExceptions
 import com.mpaani.core.networking.Outcome
 import io.reactivex.Completable
@@ -24,7 +21,7 @@ class DetailsRepository(val postDb: PostDb, val postService: PostService) {
             return
 
         commentsFetchOutcome.loading(true)
-        compositeDisposable.add(postDb.commentDao().getForPost(postId)
+        postDb.commentDao().getForPost(postId)
                 .performOnBackOutOnMain()
                 .subscribe({ retailers ->
                     commentsFetchOutcome.success(retailers)
@@ -32,15 +29,15 @@ class DetailsRepository(val postDb: PostDb, val postService: PostService) {
                         refreshComments(postId, compositeDisposable)
                     remoteFetch = false
                 }, { error -> handleError(error) })
-        )
+                .addTo(compositeDisposable)
     }
 
     fun refreshComments(postId: Int, compositeDisposable: CompositeDisposable) {
         commentsFetchOutcome.loading(true)
-        compositeDisposable.add(
-                postService.getComments(postId)
-                        .performOnBackOutOnMain()
-                        .subscribe({ comments -> saveCommentsForPost(comments) }, { error -> handleError(error) }))
+        postService.getComments(postId)
+                .performOnBackOutOnMain()
+                .subscribe({ comments -> saveCommentsForPost(comments) }, { error -> handleError(error) })
+                .addTo(compositeDisposable)
     }
 
     private fun saveCommentsForPost(comments: List<Comment>) {
