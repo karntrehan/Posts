@@ -9,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 
 interface ListDataContract {
-    interface Repositoy {
+    interface Repository {
         val postFetchOutcome: PublishSubject<Outcome<List<PostWithUser>>>
         fun fetchPosts(compositeDisposable: CompositeDisposable)
         fun refreshPosts(compositeDisposable: CompositeDisposable)

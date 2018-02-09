@@ -39,3 +39,24 @@ fun <T> Observable<T>.performOnBackOutOnMain(scheduler: Scheduler): Observable<T
 fun Disposable.addTo(compositeDisposable: CompositeDisposable) {
     compositeDisposable.add(this)
 }
+
+/**
+ * Extension function to subscribe on the background thread for a Flowable
+ * */
+fun <T> Flowable<T>.performOnBack(scheduler: Scheduler): Flowable<T> {
+    return this.subscribeOn(scheduler.io())
+}
+
+/**
+ * Extension function to subscribe on the background thread for a Completable
+ * */
+fun Completable.performOnBack(scheduler: Scheduler): Completable {
+    return this.subscribeOn(scheduler.io())
+}
+
+/**
+ * Extension function to subscribe on the background thread for a Observable
+ * */
+fun <T> Observable<T>.performOnBack(scheduler: Scheduler): Observable<T> {
+    return this.subscribeOn(scheduler.io())
+}

@@ -26,6 +26,7 @@ interface ListComponent {
 
     //Expose to dependent components
     fun postDb(): PostDb
+
     fun postService(): PostService
     fun picasso(): Picasso
     fun scheduler(): Scheduler
@@ -45,12 +46,12 @@ class ListModule {
     /*ViewModel*/
     @Provides
     @ListScope
-    fun listViewModelFactory(listRepository: ListRepository): ListViewModelFactory = ListViewModelFactory(listRepository)
+    fun listViewModelFactory(repository: ListDataContract.Repository): ListViewModelFactory = ListViewModelFactory(repository)
 
     /*Repository*/
     @Provides
     @ListScope
-    fun listRepo(local: ListDataContract.Local, remote: ListDataContract.Remote, scheduler: Scheduler): ListRepository = ListRepository(local, remote, scheduler)
+    fun listRepo(local: ListDataContract.Local, remote: ListDataContract.Remote, scheduler: Scheduler): ListDataContract.Repository = ListRepository(local, remote, scheduler)
 
     @Provides
     @ListScope
@@ -60,6 +61,7 @@ class ListModule {
     @ListScope
     fun localData(postDb: PostDb, scheduler: Scheduler): ListDataContract.Local = ListLocalData(postDb, scheduler)
 
+    /*Parent providers to dependents*/
     @Provides
     @ListScope
     fun postDb(context: Context): PostDb = Room.databaseBuilder(context, PostDb::class.java, Constants.Posts.DB_NAME).build()

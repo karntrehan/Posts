@@ -14,14 +14,12 @@ import io.reactivex.subjects.PublishSubject
 
 class ListRepository(private val local: ListDataContract.Local,
                      private val remote: ListDataContract.Remote,
-                     private val scheduler: Scheduler) : ListDataContract.Repositoy {
+                     private val scheduler: Scheduler) : ListDataContract.Repository {
 
     override val postFetchOutcome: PublishSubject<Outcome<List<PostWithUser>>> = PublishSubject.create<Outcome<List<PostWithUser>>>()
 
     //Need to perform a remoteFetch or not?
     private var remoteFetch = true
-
-    private val TAG = "ListRepository"
 
     override fun fetchPosts(compositeDisposable: CompositeDisposable) {
         postFetchOutcome.loading(true)

@@ -35,14 +35,15 @@ class DetailsModule {
     /*ViewModel*/
     @Provides
     @DetailsScope
-    fun detailsViewModelFactory(detailsRepository: DetailsRepository): DetailsViewModelFactory {
-        return DetailsViewModelFactory(detailsRepository)
+    fun detailsViewModelFactory(repo: DetailsDataContract.Repository): DetailsViewModelFactory {
+        return DetailsViewModelFactory(repo)
     }
 
     /*Repository*/
     @Provides
     @DetailsScope
-    fun detailsRepo(local: DetailsDataContract.Local, remote: DetailsDataContract.Remote, scheduler: Scheduler): DetailsRepository = DetailsRepository(local, remote, scheduler)
+    fun detailsRepo(local: DetailsDataContract.Local, remote: DetailsDataContract.Remote, scheduler: Scheduler)
+            : DetailsDataContract.Repository = DetailsRepository(local, remote, scheduler)
 
     @Provides
     @DetailsScope

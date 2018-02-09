@@ -5,15 +5,14 @@ import android.arch.lifecycle.ViewModel
 import com.karntrehan.posts.core.extensions.toLiveData
 import com.karntrehan.posts.commons.data.PostWithUser
 import com.karntrehan.posts.commons.PostDH
+import com.karntrehan.posts.list.model.ListDataContract
 import com.karntrehan.posts.list.model.ListRepository
 import com.mpaani.core.networking.Outcome
 import io.reactivex.disposables.CompositeDisposable
 
-class ListViewModel(private val repo: ListRepository) : ViewModel() {
+class ListViewModel(private val repo: ListDataContract.Repository) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
-
-    private val TAG = "ListViewModel"
 
     val postsOutcome: LiveData<Outcome<List<PostWithUser>>> by lazy {
         //Convert publish subject to livedata

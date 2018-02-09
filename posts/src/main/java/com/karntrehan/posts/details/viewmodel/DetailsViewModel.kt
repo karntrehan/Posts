@@ -5,11 +5,12 @@ import android.arch.lifecycle.ViewModel
 import com.karntrehan.posts.commons.PostDH
 import com.karntrehan.posts.commons.data.local.Comment
 import com.karntrehan.posts.core.extensions.toLiveData
+import com.karntrehan.posts.details.model.DetailsDataContract
 import com.karntrehan.posts.details.model.DetailsRepository
 import com.mpaani.core.networking.Outcome
 import io.reactivex.disposables.CompositeDisposable
 
-class DetailsViewModel(val repo: DetailsRepository) : ViewModel() {
+class DetailsViewModel(private val repo: DetailsDataContract.Repository) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     val commentsOutcome: LiveData<Outcome<List<Comment>>> by lazy {

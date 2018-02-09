@@ -2,7 +2,7 @@ package com.karntrehan.posts.details.model
 
 import com.karntrehan.posts.commons.data.local.Comment
 import com.karntrehan.posts.commons.data.local.PostDb
-import com.karntrehan.posts.core.extensions.performOnBackOutOnMain
+import com.karntrehan.posts.core.extensions.performOnBack
 import com.karntrehan.posts.core.networking.Scheduler
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -15,9 +15,9 @@ class DetailsLocalData(private val postDb: PostDb, private val scheduler: Schedu
 
     override fun saveComments(comments: List<Comment>) {
         Completable.fromAction {
-            postDb.commentDao().insertAll(comments)
+            postDb.commentDao().upsertAll(comments)
         }
-                .performOnBackOutOnMain(scheduler)
+                .performOnBack(scheduler)
                 .subscribe()
     }
 }
