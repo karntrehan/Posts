@@ -11,17 +11,18 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.PublishSubject
 
+
 class ListRepository(private val local: ListDataContract.Local,
                      private val remote: ListDataContract.Remote,
-                     private val scheduler: Scheduler) : ListDataContract.Repository {
+                     private val scheduler: Scheduler,
+                     private val compositeDisposable: CompositeDisposable) : ListDataContract.Repository {
 
-    override val postFetchOutcome: PublishSubject<Outcome<List<PostWithUser>>>
-            = PublishSubject.create<Outcome<List<PostWithUser>>>()
+    override val postFetchOutcome: PublishSubject<Outcome<List<PostWithUser>>> = PublishSubject.create<Outcome<List<PostWithUser>>>()
 
     //Need to perform a remoteFetch or not?
     var remoteFetch = true
 
-    override fun fetchPosts(compositeDisposable: CompositeDisposable) {
+    override fun fetchPosts() {
         postFetchOutcome.loading(true)
         //Observe changes to the db
         local.getPostsWithUsers()
@@ -29,13 +30,13 @@ class ListRepository(private val local: ListDataContract.Local,
                 .subscribe({ retailers ->
                     postFetchOutcome.success(retailers)
                     if (remoteFetch)
-                        refreshPosts(compositeDisposable)
+                        refreshPosts()
                     remoteFetch = false
                 }, { error -> handleError(error) })
                 .addTo(compositeDisposable)
     }
 
-    override fun refreshPosts(compositeDisposable: CompositeDisposable) {
+    override fun refreshPosts() {
         postFetchOutcome.loading(true)
         Flowable.zip(
                 remote.getUsers(),

@@ -4,21 +4,21 @@ A sample app to demonstrate the building of a good, modular and scalable Android
 # Features
 Some of the features of the app include
 
-- `Effective Networking` - Using a combination of Retrofit, Rx, Room and LiveData, we are able to handle networking in the most effective way.
+- **Effective Networking** - Using a combination of Retrofit, Rx, Room and LiveData, we are able to handle networking in the most effective way.
 
-- `Modular` - The app is broken into modules of features and libraries which can be combined to build instant-apps, complete apps or lite version of apps.
+- **Modular** - The app is broken into modules of features and libraries which can be combined to build instant-apps, complete apps or lite version of apps.
 
-- `MVVM architecture` - Using the lifecycle aware viewmodels, the view observes changes in the model / repository.
+- **MVVM architecture** - Using the lifecycle aware viewmodels, the view observes changes in the model / repository.
 
-- `Kotlin` - This app is completely written in Kotlin.
+- **Kotlin** - This app is completely written in Kotlin.
 
-- `Android Architecture Components` - Lifecycle awareness has been achieved using a combination of LiveData, ViewModels and Room.
+- **Android Architecture Components** - Lifecycle awareness has been achieved using a combination of LiveData, ViewModels and Room.
 
- - `Offline first architecture` - All the data is first tried to be loaded from the db and then updated from the server. This ensures that the app is usable even in an offline mode.
+ - **Offline first architecture** - All the data is first tried to be loaded from the db and then updated from the server. This ensures that the app is usable even in an offline mode.
 
- - `Dependency Injection` - Common elements like `context`, `networking` interface are injected using Dagger 2.
+ - **Dependency Injection** - Common elements like `context`, `networking` interface are injected using Dagger 2.
 
- - `Feature based packaging` - This screen-wise / feature-wise packaging makes code really easy to read and debug.
+ - **Feature based packaging** - This screen-wise / feature-wise packaging makes code really easy to read and debug.
 
 # Working
 ![Working](posts.gif)
@@ -119,7 +119,7 @@ viewModel.postsOutcome.observe(this, Observer<Outcome<List<Post>>> { outcome ->
 
 
 # Testing:
-TODO
+To run all the unit tests, run `./gradlew test`. To run all the instrumented tests, run  `./gradlew connectedAndroidTest`
 
 # Build info:
   - Android Studio - 3.1 Canary 8
