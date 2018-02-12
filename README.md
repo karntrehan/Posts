@@ -119,7 +119,7 @@ viewModel.postsOutcome.observe(this, Observer<Outcome<List<Post>>> { outcome ->
 
 
 # Testing:
-Under build
+To run all the unit tests, run `./gradlew test`. To run all the instrumented tests, run  `./gradlew connectedAndroidTest`
 
 # Build info:
   - Android Studio - 3.1 Canary 8
