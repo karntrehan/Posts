@@ -12,7 +12,7 @@ import io.reactivex.Flowable
 class ListLocalData(private val postDb: PostDb, private val scheduler: Scheduler) : ListDataContract.Local {
 
     override fun getPostsWithUsers(): Flowable<List<PostWithUser>> {
-        return postDb.postDao().getAll()
+        return postDb.postDao().getAllPostsWithUser()
     }
 
     override fun saveUsersAndPosts(users: List<User>, posts: List<Post>) {

@@ -8,11 +8,14 @@ buildscript {
             'buildTools'       : '27.0.2',
             'androidPlugin'    : '3.1.0-alpha08',
             'kotlin'           : '1.2.20',
-            'archComp'         : '1.0.0',
+            'archComp'         : '1.1.0',
+            'livedataTesting'  : '1.1.0',
             'room'             : '1.0.0',
             'roomRx'           : '1.0.0',
+            'roomTesting'      : '1.0.0',
             'gms'              : '3.1.0',
             'dagger'           : '2.12',
+            'gson'             : '2.8.0',
             'retrofit'         : '2.3.0',
             'retrofitRxAdapter': '1.0.0',
             'okhttp'           : '3.9.0',
@@ -24,7 +27,7 @@ buildscript {
             'junit'            : '4.12',
             'atsl'             : '1.0.1',
             'mockitoKotlin'    : '1.5.0',
-            'roboelectric'      : '3.6.1',
+            'roboelectric'     : '3.6.1',
             'sourceCompat'     : JavaVersion.VERSION_1_8,
             'targetCompat'     : JavaVersion.VERSION_1_8
     ]
@@ -58,6 +61,7 @@ buildscript {
                     'gmsPlugin'      : "com.google.gms:google-services:${versions.gms}",
                     'dagger'         : "com.google.dagger:dagger:${versions.dagger}",
                     'daggerProcessor': "com.google.dagger:dagger-compiler:${versions.dagger}",
+                    'gson': "com.google.code.gson:gson:${versions.gson}",
             ],
             square   : [
                     'retrofit'         : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
@@ -72,11 +76,13 @@ buildscript {
                     'networkInterceptor': "com.facebook.stetho:stetho-okhttp3:${versions.stetho}"
             ],
             test     : [
-                    'junit'      : "junit:junit:${versions.junit}",
-                    'atslRunner' : "com.android.support.test:runner:${versions.atsl}",
-                    'atslRules'  : "com.android.support.test:rules:${versions.atsl}",
-                    'mockitoKotlin':"com.nhaarman:mockito-kotlin:${versions.mockitoKotlin}",
-                    'roboelectric':"org.robolectric:robolectric:${versions.roboelectric}"
+                    'junit'          : "junit:junit:${versions.junit}",
+                    'atslRunner'     : "com.android.support.test:runner:${versions.atsl}",
+                    'atslRules'      : "com.android.support.test:rules:${versions.atsl}",
+                    'mockitoKotlin'  : "com.nhaarman:mockito-kotlin:${versions.mockitoKotlin}",
+                    'roboelectric'   : "org.robolectric:robolectric:${versions.roboelectric}",
+                    'roomTesting'    : "android.arch.persistence.room:testing:${versions.roomTesting}",
+                    'livedataTesting': "android.arch.core:core-testing:${versions.livedataTesting}",
             ]
     ]
     repositories {

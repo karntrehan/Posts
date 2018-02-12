@@ -59,6 +59,7 @@ dependencies {
 
     api deps.google.dagger
     kapt deps.google.daggerProcessor
+    api deps.google.gson
 
     api deps.square.picasso
     api deps.square.okhttpDownloader

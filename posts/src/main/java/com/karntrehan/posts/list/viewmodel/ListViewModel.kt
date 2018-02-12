@@ -9,22 +9,21 @@ import com.karntrehan.posts.list.model.ListDataContract
 import com.mpaani.core.networking.Outcome
 import io.reactivex.disposables.CompositeDisposable
 
-class ListViewModel(private val repo: ListDataContract.Repository) : ViewModel() {
-
-    private val compositeDisposable = CompositeDisposable()
+class ListViewModel(private val repo: ListDataContract.Repository,
+                    private val compositeDisposable: CompositeDisposable) : ViewModel() {
 
     val postsOutcome: LiveData<Outcome<List<PostWithUser>>> by lazy {
         //Convert publish subject to livedata
         repo.postFetchOutcome.toLiveData(compositeDisposable)
     }
 
-    fun refreshPosts() {
-        repo.refreshPosts(compositeDisposable)
-    }
-
     fun getPosts() {
         if (postsOutcome.value == null)
-            repo.fetchPosts(compositeDisposable)
+            repo.fetchPosts()
+    }
+
+    fun refreshPosts() {
+        repo.refreshPosts()
     }
 
     override fun onCleared() {

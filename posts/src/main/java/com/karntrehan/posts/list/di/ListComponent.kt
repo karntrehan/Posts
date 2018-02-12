@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
 import retrofit2.Retrofit
 
 @ListScope
@@ -46,12 +47,12 @@ class ListModule {
     /*ViewModel*/
     @Provides
     @ListScope
-    fun listViewModelFactory(repository: ListDataContract.Repository): ListViewModelFactory = ListViewModelFactory(repository)
+    fun listViewModelFactory(repository: ListDataContract.Repository,compositeDisposable: CompositeDisposable): ListViewModelFactory = ListViewModelFactory(repository,compositeDisposable)
 
     /*Repository*/
     @Provides
     @ListScope
-    fun listRepo(local: ListDataContract.Local, remote: ListDataContract.Remote, scheduler: Scheduler): ListDataContract.Repository = ListRepository(local, remote, scheduler)
+    fun listRepo(local: ListDataContract.Local, remote: ListDataContract.Remote, scheduler: Scheduler, compositeDisposable: CompositeDisposable): ListDataContract.Repository = ListRepository(local, remote, scheduler, compositeDisposable)
 
     @Provides
     @ListScope
@@ -60,6 +61,10 @@ class ListModule {
     @Provides
     @ListScope
     fun localData(postDb: PostDb, scheduler: Scheduler): ListDataContract.Local = ListLocalData(postDb, scheduler)
+
+    @Provides
+    @ListScope
+    fun compositeDisposable(): CompositeDisposable = CompositeDisposable()
 
     /*Parent providers to dependents*/
     @Provides

@@ -14,6 +14,7 @@ import com.karntrehan.posts.list.di.ListComponent
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
 
 @DetailsScope
 @Component(dependencies = [ListComponent::class], modules = [DetailsModule::class])
@@ -34,15 +35,15 @@ class DetailsModule {
     /*ViewModel*/
     @Provides
     @DetailsScope
-    fun detailsViewModelFactory(repo: DetailsDataContract.Repository): DetailsViewModelFactory {
-        return DetailsViewModelFactory(repo)
+    fun detailsViewModelFactory(repo: DetailsDataContract.Repository,compositeDisposable: CompositeDisposable): DetailsViewModelFactory {
+        return DetailsViewModelFactory(repo,compositeDisposable)
     }
 
     /*Repository*/
     @Provides
     @DetailsScope
-    fun detailsRepo(local: DetailsDataContract.Local, remote: DetailsDataContract.Remote, scheduler: Scheduler)
-            : DetailsDataContract.Repository = DetailsRepository(local, remote, scheduler)
+    fun detailsRepo(local: DetailsDataContract.Local, remote: DetailsDataContract.Remote, scheduler: Scheduler,compositeDisposable: CompositeDisposable)
+            : DetailsDataContract.Repository = DetailsRepository(local, remote, scheduler,compositeDisposable)
 
     @Provides
     @DetailsScope
@@ -51,4 +52,8 @@ class DetailsModule {
     @Provides
     @DetailsScope
     fun localData(postDb: PostDb, scheduler: Scheduler): DetailsDataContract.Local = DetailsLocalData(postDb, scheduler)
+
+    @Provides
+    @DetailsScope
+    fun compositeDisposable(): CompositeDisposable = CompositeDisposable()
 }
