@@ -37,6 +37,16 @@ android {
             includeAndroidResources = true
         }
     }
+    /*http://blog.danlew.net/2015/11/02/sharing-code-between-unit-tests-and-instrumentation-tests-on-android/*/
+    sourceSets {
+        String sharedTestDir = 'src/sharedTest/java/com/karntrehan/posts/shared_tests'
+        test {
+            java.srcDir sharedTestDir
+        }
+        androidTest {
+            java.srcDir sharedTestDir
+        }
+    }
 }
 
 androidExtensions {
@@ -48,9 +58,18 @@ dependencies {
     kapt deps.android.roomCompiler
     kapt deps.google.daggerProcessor
 
-
     //Local unit tests
     testImplementation deps.test.junit
     testImplementation deps.test.mockitoKotlin
     testImplementation deps.test.roboelectric
+    testImplementation deps.test.livedataTesting
+    testImplementation deps.test.roomTesting
+
+    androidTestImplementation deps.test.junit
+    androidTestImplementation deps.test.mockitoKotlin
+    androidTestImplementation deps.test.atslRunner
+    androidTestImplementation deps.test.atslRules
+    androidTestImplementation deps.test.roomTesting
+    androidTestImplementation deps.test.livedataTesting
+
 }
