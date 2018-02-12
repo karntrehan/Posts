@@ -10,13 +10,14 @@ import io.reactivex.subjects.PublishSubject
 
 class DetailsRepository(private val local: DetailsDataContract.Local,
                         private val remote: DetailsDataContract.Remote,
-                        private val scheduler: Scheduler) : DetailsDataContract.Repository {
+                        private val scheduler: Scheduler,
+                        private val compositeDisposable: CompositeDisposable) : DetailsDataContract.Repository {
 
     override val commentsFetchOutcome: PublishSubject<Outcome<List<Comment>>> = PublishSubject.create<Outcome<List<Comment>>>()
 
     var remoteFetch = true
 
-    override fun fetchCommentsFor(postId: Int?, compositeDisposable: CompositeDisposable) {
+    override fun fetchCommentsFor(postId: Int?) {
         if (postId == null)
             return
 
@@ -26,13 +27,13 @@ class DetailsRepository(private val local: DetailsDataContract.Local,
                 .subscribe({ retailers ->
                     commentsFetchOutcome.success(retailers)
                     if (remoteFetch)
-                        refreshComments(postId, compositeDisposable)
+                        refreshComments(postId)
                     remoteFetch = false
                 }, { error -> handleError(error) })
                 .addTo(compositeDisposable)
     }
 
-    override fun refreshComments(postId: Int, compositeDisposable: CompositeDisposable) {
+    override fun refreshComments(postId: Int) {
         commentsFetchOutcome.loading(true)
         remote.getCommentsForPost(postId)
                 .performOnBackOutOnMain(scheduler)

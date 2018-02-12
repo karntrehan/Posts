@@ -27,7 +27,7 @@ class ListRepositoryTest {
 
     @Before
     fun init() {
-        repository = ListRepository(local, remote, TestScheduler())
+        repository = ListRepository(local, remote, TestScheduler(), compositeDisposable)
         whenever(local.getPostsWithUsers()).doReturn(Flowable.just(emptyList()))
         whenever(remote.getUsers()).doReturn(Flowable.just(emptyList()))
         whenever(remote.getPosts()).doReturn(Flowable.just(emptyList()))
@@ -47,7 +47,7 @@ class ListRepositoryTest {
         repository.postFetchOutcome.subscribe(obs)
         obs.assertEmpty()
 
-        repository.fetchPosts(compositeDisposable)
+        repository.fetchPosts()
         verify(local).getPostsWithUsers()
 
         obs.assertValueAt(0, Outcome.loading(true))
@@ -62,7 +62,7 @@ class ListRepositoryTest {
     @Test
     fun testFirstFetchPostsTriggersRemote() {
         repository.remoteFetch = true
-        repository.fetchPosts(compositeDisposable)
+        repository.fetchPosts()
         verify(remote).getPosts()
         verify(remote).getUsers()
     }
@@ -75,7 +75,7 @@ class ListRepositoryTest {
     @Test
     fun testSubsequentFetchPostsNeverTriggersRemote() {
         repository.remoteFetch = false
-        repository.fetchPosts(compositeDisposable)
+        repository.fetchPosts()
         verify(remote, never()).getPosts()
         verify(remote, never()).getUsers()
     }
@@ -91,7 +91,7 @@ class ListRepositoryTest {
         whenever(remote.getUsers()).doReturn(Flowable.just(dummyUsers))
         whenever(remote.getPosts()).doReturn(Flowable.just(dummyPosts))
 
-        repository.refreshPosts(compositeDisposable)
+        repository.refreshPosts()
         verify(local).saveUsersAndPosts(dummyUsers, dummyPosts)
     }
 
@@ -107,7 +107,7 @@ class ListRepositoryTest {
         val obs = TestObserver<Outcome<List<PostWithUser>>>()
         repository.postFetchOutcome.subscribe(obs)
 
-        repository.refreshPosts(compositeDisposable)
+        repository.refreshPosts()
 
         obs.assertValueAt(0, Outcome.loading(true))
         obs.assertValueAt(1, Outcome.loading(false))
