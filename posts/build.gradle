@@ -30,6 +30,13 @@ android {
         sourceCompatibility versions.sourceCompat
         targetCompatibility versions.targetCompat
     }
+
+    //For testing
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 androidExtensions {
@@ -41,4 +48,9 @@ dependencies {
     kapt deps.android.roomCompiler
     kapt deps.google.daggerProcessor
 
+
+    //Local unit tests
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockitoKotlin
+    testImplementation deps.test.roboelectric
 }

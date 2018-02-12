@@ -10,7 +10,7 @@ interface CommentDao {
     fun getForPost(postId: Int): Flowable<List<Comment>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(comments: List<Comment>)
+    fun upsertAll(comments: List<Comment>)
 
     @Delete
     fun delete(comment: Comment)

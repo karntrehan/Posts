@@ -4,7 +4,6 @@ import com.karntrehan.posts.commons.data.local.Comment
 import com.karntrehan.posts.commons.data.local.Post
 import com.karntrehan.posts.commons.data.local.User
 import io.reactivex.Flowable
-import org.intellij.lang.annotations.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
 

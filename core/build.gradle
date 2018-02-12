@@ -70,8 +70,4 @@ dependencies {
 
     implementation deps.facebook.stetho
     implementation deps.facebook.networkInterceptor
-
-    testApi deps.test.junit
-    androidTestApi deps.test.testRunner
-    androidTestApi deps.test.espressoCore
 }
