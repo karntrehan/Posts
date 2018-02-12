@@ -48,9 +48,9 @@ dependencies {
     kapt deps.android.roomCompiler
     kapt deps.google.daggerProcessor
 
-
     //Local unit tests
     testImplementation deps.test.junit
     testImplementation deps.test.mockitoKotlin
-    testImplementation deps.test.roboelectric
+    testImplementation deps.test.robolectric
+    testImplementation deps.test.mockWebServer
 }

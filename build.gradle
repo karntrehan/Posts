@@ -24,7 +24,7 @@ buildscript {
             'junit'            : '4.12',
             'atsl'             : '1.0.1',
             'mockitoKotlin'    : '1.5.0',
-            'roboelectric'      : '3.6.1',
+            'robolectric'     : '3.6.1',
             'sourceCompat'     : JavaVersion.VERSION_1_8,
             'targetCompat'     : JavaVersion.VERSION_1_8
     ]
@@ -72,11 +72,12 @@ buildscript {
                     'networkInterceptor': "com.facebook.stetho:stetho-okhttp3:${versions.stetho}"
             ],
             test     : [
-                    'junit'      : "junit:junit:${versions.junit}",
-                    'atslRunner' : "com.android.support.test:runner:${versions.atsl}",
-                    'atslRules'  : "com.android.support.test:rules:${versions.atsl}",
-                    'mockitoKotlin':"com.nhaarman:mockito-kotlin:${versions.mockitoKotlin}",
-                    'roboelectric':"org.robolectric:robolectric:${versions.roboelectric}"
+                    'junit'        : "junit:junit:${versions.junit}",
+                    'atslRunner'   : "com.android.support.test:runner:${versions.atsl}",
+                    'atslRules'    : "com.android.support.test:rules:${versions.atsl}",
+                    'mockitoKotlin': "com.nhaarman:mockito-kotlin:${versions.mockitoKotlin}",
+                    'robolectric'  : "org.robolectric:robolectric:${versions.robolectric}",
+                    'mockWebServer': "com.squareup.okhttp3:mockwebserver:${versions.okhttp}"
             ]
     ]
     repositories {
