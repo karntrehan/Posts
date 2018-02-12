@@ -2,18 +2,18 @@ package com.karntrehan.posts.list.di
 
 import android.arch.persistence.room.Room
 import android.content.Context
-import com.karntrehan.posts.core.constants.Constants
-import com.karntrehan.posts.core.di.CoreComponent
-import com.karntrehan.posts.list.ListActivity
-import com.karntrehan.posts.list.ListAdapter
-import com.karntrehan.posts.list.model.ListRepository
-import com.karntrehan.posts.list.viewmodel.ListViewModelFactory
 import com.karntrehan.posts.commons.data.local.PostDb
 import com.karntrehan.posts.commons.data.remote.PostService
+import com.karntrehan.posts.core.constants.Constants
+import com.karntrehan.posts.core.di.CoreComponent
 import com.karntrehan.posts.core.networking.Scheduler
+import com.karntrehan.posts.list.ListActivity
+import com.karntrehan.posts.list.ListAdapter
 import com.karntrehan.posts.list.model.ListDataContract
 import com.karntrehan.posts.list.model.ListLocalData
 import com.karntrehan.posts.list.model.ListRemoteData
+import com.karntrehan.posts.list.model.ListRepository
+import com.karntrehan.posts.list.viewmodel.ListViewModelFactory
 import com.squareup.picasso.Picasso
 import dagger.Component
 import dagger.Module

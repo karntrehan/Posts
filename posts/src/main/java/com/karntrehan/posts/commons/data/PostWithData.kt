@@ -3,7 +3,6 @@ package com.karntrehan.posts.commons.data
 import android.annotation.SuppressLint
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcelable
-import android.support.annotation.VisibleForTesting
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

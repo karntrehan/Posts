@@ -6,7 +6,6 @@ import com.karntrehan.posts.commons.PostDH
 import com.karntrehan.posts.commons.data.local.Comment
 import com.karntrehan.posts.core.extensions.toLiveData
 import com.karntrehan.posts.details.model.DetailsDataContract
-import com.karntrehan.posts.details.model.DetailsRepository
 import com.mpaani.core.networking.Outcome
 import io.reactivex.disposables.CompositeDisposable
 

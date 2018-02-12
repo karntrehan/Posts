@@ -4,10 +4,8 @@ import com.karntrehan.posts.core.networking.Scheduler
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 
 /**
  * Extension function to subscribe on the background thread and observe on the main thread for a Completable

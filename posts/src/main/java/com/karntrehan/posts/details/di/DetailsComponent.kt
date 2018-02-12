@@ -2,7 +2,6 @@ package com.karntrehan.posts.details.di
 
 import com.karntrehan.posts.commons.data.local.PostDb
 import com.karntrehan.posts.commons.data.remote.PostService
-import com.karntrehan.posts.core.di.CoreComponent
 import com.karntrehan.posts.core.networking.Scheduler
 import com.karntrehan.posts.details.DetailsActivity
 import com.karntrehan.posts.details.DetailsAdapter
