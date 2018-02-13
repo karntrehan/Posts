@@ -119,7 +119,9 @@ viewModel.postsOutcome.observe(this, Observer<Outcome<List<Post>>> { outcome ->
 
 
 # Testing:
-To run all the unit tests, run `./gradlew test`. To run all the instrumented tests, run  `./gradlew connectedAndroidTest`
+To run all the unit tests, run `./gradlew test`. This would test the repositories and the viewmodels.
+
+To run all the instrumented tests, run  `./gradlew connectedAndroidTest`. This would test the LocalDataSources (Room)
 
 # Build info:
   - Android Studio - 3.1 Canary 8

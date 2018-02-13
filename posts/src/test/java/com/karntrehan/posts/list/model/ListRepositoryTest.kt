@@ -23,7 +23,7 @@ class ListRepositoryTest {
     private val remote: ListDataContract.Remote = mock()
 
     private lateinit var repository: ListRepository
-    private var compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
     @Before
     fun init() {
@@ -86,8 +86,9 @@ class ListRepositoryTest {
      * */
     @Test
     fun testRefreshPostsTriggersSave() {
-        val dummyUsers = listOf(DummyData.User(1))
-        val dummyPosts = listOf(DummyData.Post(1))
+        val userId = 1
+        val dummyUsers = listOf(DummyData.User(userId))
+        val dummyPosts = listOf(DummyData.Post(userId, 1))
         whenever(remote.getUsers()).doReturn(Flowable.just(dummyUsers))
         whenever(remote.getPosts()).doReturn(Flowable.just(dummyPosts))
 

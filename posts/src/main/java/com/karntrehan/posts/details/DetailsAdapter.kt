@@ -12,7 +12,13 @@ class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder>() 
     private var data = emptyList<Comment>()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DetailsViewHolder {
-        return DetailsViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.comment_item, parent, false))
+        return DetailsViewHolder(
+            LayoutInflater.from(parent?.context).inflate(
+                R.layout.comment_item,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: DetailsViewHolder?, position: Int) {
