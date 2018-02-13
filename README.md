@@ -120,6 +120,13 @@ To run all the instrumented tests, run  `./gradlew connectedAndroidTest`. This w
   - Compile SDK - 27
   - MinSDK - 16, Target - 27
 
+# Articles
+To read more about the architecture choices and the decisions behind this project, kindly refer to the following articles:
+* [Effective Networking On Android using Retrofit, Rx and Architecture Components](https://medium.com/mindorks/effective-networking-on-android-using-retrofit-rx-and-architecture-components-4554ca5b167d)
+* [Writing a modular project on Android](https://medium.com/mindorks/writing-a-modular-project-on-android-304f3b09cb37)
+
+**Talk to the developer about this project**: [@karntrehan](https://twitter.com/karntrehan)
+
 # Libraries used
 * [Android Support Libraries](https://developer.android.com/topic/libraries/support-library/index.html)
 * [Dagger 2](https://google.github.io/dagger/)
