@@ -21,14 +21,14 @@ class DetailsRemoteDataTest {
 
     @Test
     fun getCommentsForPost() {
-        val postId = 1
-        whenever(postService.getComments(postId)).thenReturn(Flowable.just(listOf(
-                DummyData.Comment(postId, 101),
-                DummyData.Comment(postId, 102),
-                DummyData.Comment(postId, 103)
+        val userId = 1
+        whenever(postService.getComments(userId)).thenReturn(Flowable.just(listOf(
+                DummyData.Comment(userId, 101),
+                DummyData.Comment(userId, 102),
+                DummyData.Comment(userId, 103)
         )))
 
-        DetailsRemoteData(postService).getCommentsForPost(postId).test().run {
+        DetailsRemoteData(postService).getCommentsForPost(userId).test().run {
             assertNoErrors()
             assertValueCount(1)
             assertEquals(values()[0].size, 3)
