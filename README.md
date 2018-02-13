@@ -89,24 +89,24 @@ val postsOutcome: LiveData<Outcome<List<Post>>> by lazy {
 ###  [Activity](posts/src/main/java/com/karntrehan/posts/list/ListActivity.kt)
 ```java
 viewModel.postsOutcome.observe(this, Observer<Outcome<List<Post>>> { outcome ->
-        when (outcome) {
+    when (outcome) {
 
-            is Outcome.Progress -> srlPosts.isRefreshing = outcome.loading
+        is Outcome.Progress -> srlPosts.isRefreshing = outcome.loading
 
-            is Outcome.Success -> {
-                Log.d(TAG, "initiateDataListener: Successfully loaded data")
-                adapter.setData(outcome.data)
-            }
-
-            is Outcome.Failure -> {
-                if (outcome.e is IOException)
-                    Toast.makeText(context, R.string.need_internet_posts, Toast.LENGTH_LONG).show()
-                else
-                    Toast.makeText(context, R.string.failed_post_try_again, Toast.LENGTH_LONG).show()
-            }
-
+        is Outcome.Success -> {
+            Log.d(TAG, "initiateDataListener: Successfully loaded data")
+            adapter.setData(outcome.data)
         }
-    })
+
+        is Outcome.Failure -> {
+            if (outcome.e is IOException)
+                Toast.makeText(context, R.string.need_internet_posts, Toast.LENGTH_LONG).show()
+            else
+                Toast.makeText(context, R.string.failed_post_try_again, Toast.LENGTH_LONG).show()
+        }
+
+    }
+})
 ```
 
 
