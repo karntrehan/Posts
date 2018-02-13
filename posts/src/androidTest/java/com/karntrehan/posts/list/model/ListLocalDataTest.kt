@@ -27,11 +27,12 @@ class ListLocalDataTest {
 
     private val listLocalData: ListLocalData by lazy { ListLocalData(postDb, TestScheduler()) }
 
+    //Necessary for Room insertions to work
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val dummyUsers = listOf(DummyData.User(1), DummyData.User(2))
-    private val dummyPosts = listOf(DummyData.Post(1), DummyData.Post(2))
+    private val dummyPosts = listOf(DummyData.Post(1, 1), DummyData.Post(2, 2))
 
     @Before
     fun init() {

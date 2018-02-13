@@ -40,7 +40,14 @@ class DetailsActivity : BaseActivity() {
         private const val AUTHOR_TRANSITION_NAME = "author_transition"
         private const val AVATAR_TRANSITION_NAME = "avatar_transition"
 
-        fun start(context: Context, post: PostWithUser, tvTitle: TextView, tvBody: TextView, tvAuthorName: TextView, ivAvatar: ImageView) {
+        fun start(
+            context: Context,
+            post: PostWithUser,
+            tvTitle: TextView,
+            tvBody: TextView,
+            tvAuthorName: TextView,
+            ivAvatar: ImageView
+        ) {
             val intent = Intent(context, DetailsActivity::class.java)
             intent.putExtra(SELECTED_POST, post)
 
@@ -54,7 +61,13 @@ class DetailsActivity : BaseActivity() {
             val p2 = Pair.create(tvBody as View, ViewCompat.getTransitionName(tvBody))
             val p3 = Pair.create(tvAuthorName as View, ViewCompat.getTransitionName(tvAuthorName))
             val p4 = Pair.create(ivAvatar as View, ViewCompat.getTransitionName(ivAvatar))
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, p1, p2, p3, p4)
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                context as Activity,
+                p1,
+                p2,
+                p3,
+                p4
+            )
 
             context.startActivity(intent, options.toBundle())
         }
@@ -81,7 +94,9 @@ class DetailsActivity : BaseActivity() {
     @Inject
     lateinit var picasso: Picasso
 
-    private val viewModel: DetailsViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailsViewModel::class.java) }
+    private val viewModel: DetailsViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(DetailsViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,9 +152,18 @@ class DetailsActivity : BaseActivity() {
 
                 is Outcome.Failure -> {
                     when (outcome.e) {
-                        DetailsExceptions.NoCommentsException() -> tvCommentError.visibility = View.VISIBLE
-                        IOException() -> Toast.makeText(context, R.string.need_internet_posts, Toast.LENGTH_LONG).show()
-                        else -> Toast.makeText(context, R.string.failed_post_try_again, Toast.LENGTH_LONG).show()
+                        DetailsExceptions.NoCommentsException() -> tvCommentError.visibility =
+                                View.VISIBLE
+                        IOException() -> Toast.makeText(
+                            context,
+                            R.string.need_internet_posts,
+                            Toast.LENGTH_LONG
+                        ).show()
+                        else -> Toast.makeText(
+                            context,
+                            R.string.failed_post_try_again,
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
 
