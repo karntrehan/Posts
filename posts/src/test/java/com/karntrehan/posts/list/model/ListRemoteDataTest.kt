@@ -1,16 +1,14 @@
 package  com.karntrehan.posts.list.model
 
-import com.karntrehan.posts.core.testing.DependencyProvider
+import com.karntrehan.posts.commons.DummyData
 import com.karntrehan.posts.commons.data.remote.PostService
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
+import io.reactivex.Flowable
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import java.io.IOException
 
 /**
  * Tests for [ListRemoteData]
@@ -19,64 +17,37 @@ import java.io.IOException
 @RunWith(RobolectricTestRunner::class)
 class ListRemoteDataTest {
 
-    private lateinit var postService: PostService
-    private lateinit var mockWebServer: MockWebServer
+    private val postService = mock<PostService>()
 
-    @Before
-    fun init() {
-        mockWebServer = MockWebServer()
-        postService = DependencyProvider
-                .getRetrofit(mockWebServer.url("/"))
-                .create(PostService::class.java)
+    @Test
+    fun getPosts() {
+        whenever(postService.getPosts()).thenReturn(Flowable.just(listOf(
+                DummyData.Post(101),
+                DummyData.Post(102)
+        )))
 
-    }
-
-    @After
-    @Throws(IOException::class)
-    fun tearDown() {
-        mockWebServer.shutdown()
+        ListRemoteData(postService).getPosts().test().run {
+            assertNoErrors()
+            assertValueCount(1)
+            assertEquals(values()[0].size, 2)
+            assertEquals(values()[0][0].userId, 101)
+            assertEquals(values()[0][1].userId, 102)
+        }
     }
 
     @Test
     fun getUsers() {
-        mockWebServer.apply {
-            enqueue(MockResponse().apply {
-                setResponseCode(200)
-                setBody(DependencyProvider.getResponseFromJson("users"))
-            })
+        whenever(postService.getUsers()).thenReturn(Flowable.just(listOf(
+                DummyData.User(201),
+                DummyData.User(202)
+        )))
+
+        ListRemoteData(postService).getUsers().test().run {
+            assertNoErrors()
+            assertValueCount(1)
+            assertEquals(values()[0].size, 2)
+            assertEquals(values()[0][0].id, 201)
+            assertEquals(values()[0][1].id, 202)
         }
-
-        ListRemoteData(postService)
-                .getUsers()
-                .test()
-                .run {
-                    assertNoErrors()
-                    assertValueCount(1)
-                    assertEquals(values()[0].size, 10)
-                    assertEquals(values()[0][0].userName, "Leanne Graham")
-                    assertEquals(values()[0][0].id, 1)
-                }
-    }
-
-    @Test
-    fun getPosts() {
-        mockWebServer.apply {
-            enqueue(MockResponse().apply {
-                setResponseCode(200)
-                setBody(DependencyProvider.getResponseFromJson("posts"))
-            })
-        }
-
-        ListRemoteData(postService)
-                .getPosts()
-                .test()
-                .run {
-                    assertNoErrors()
-                    assertValueCount(1)
-                    assertEquals(values()[0].size, 10)
-                    assertEquals(values()[0][0].postTitle, "sunt aut facere repellat " +
-                            "provident occaecati excepturi optio reprehenderit")
-                    assertEquals(values()[0][0].userId, 1)
-                }
     }
 }
