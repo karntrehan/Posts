@@ -31,62 +31,54 @@ Some of the features of the app include
 viewModel.getPosts()
 ```
 
-### [ViewModel](posts/src/main/java/com/karntrehan/posts/list/ListViewModel.kt)
+### [ViewModel](posts/src/main/java/com/karntrehan/posts/list/viewmodel/ListViewModel.kt)
 ```java
 fun getPosts() {
     if (postsOutcome.value == null)
-        repo.fetchPosts(compositeDisposable)
+        repo.fetchPosts()
 }
 ```
 
-###  [Repository](posts/src/main/java/com/karntrehan/posts/list/ListRepository.kt)
+###  [Repository](posts/src/main/java/com/karntrehan/posts/list/model/ListRepository.kt)
 ```java
 val postFetchOutcome: PublishSubject<Outcome<List<PostWithUser>>> = PublishSubject.create<Outcome<List<PostWithUser>>>()
 
-private val TAG = "ListRepository"
-
-fun fetchPosts(compositeDisposable: CompositeDisposable) {
+override fun fetchPosts() {
     postFetchOutcome.loading(true)
     //Observe changes to the db
-    postDb.postDao().getAll()
-            .performOnBackOutOnMain()
+    local.getPostsWithUsers()
+            .performOnBackOutOnMain(scheduler)
             .subscribe({ retailers ->
                 postFetchOutcome.success(retailers)
                 if (remoteFetch)
-                    refreshPosts(compositeDisposable)
+                    refreshPosts()
                 remoteFetch = false
-            }, { error -> handleError(error) }
+            }, { error -> handleError(error) })
             .addTo(compositeDisposable)
-    )
 }
 
-fun refreshPosts(compositeDisposable: CompositeDisposable) {
+override fun refreshPosts() {
     postFetchOutcome.loading(true)
-        Flowable.zip(
-                postService.getUsers(),
-                postService.getPosts(),
-                BiFunction<List<User>, List<Post>, Unit> { t1, t2 -> saveUsersAndPosts(t1, t2) }
-        )
-                .performOnBackOutOnMain()
-                .subscribe({}, { error -> handleError(error) })
-                .addTo(compositeDisposable)
+    Flowable.zip(
+            remote.getUsers(),
+            remote.getPosts(),
+            BiFunction<List<User>, List<Post>, Unit> { t1, t2 -> saveUsersAndPosts(t1, t2) }
+    )
+            .performOnBackOutOnMain(scheduler)
+            .subscribe({}, { error -> handleError(error) })
+            .addTo(compositeDisposable)
 }
 
-private fun saveUsersAndPosts(users: List<User>, posts: List<Post>) {
-    Completable.fromAction {
-        postDb.userDao().insertAll(users)
-        postDb.postDao().insertAll(posts)
-    }
-            .performOnBackOutOnMain()
-            .subscribe()
+override fun saveUsersAndPosts(users: List<User>, posts: List<Post>) {
+    local.saveUsersAndPosts(users, posts)
 }
 
-private fun handleError(error: Throwable) {
+override fun handleError(error: Throwable) {
     postFetchOutcome.failed(error)
 }
 ```
 
-### [ViewModel](posts/src/main/java/com/karntrehan/posts/list/ListViewModel.kt) ###
+### [ViewModel](posts/src/main/java/com/karntrehan/posts/list/viewmodel/ListViewModel.kt) ###
 ```java
 val postsOutcome: LiveData<Outcome<List<Post>>> by lazy {
     //Convert publish subject to livedata
@@ -133,7 +125,7 @@ To run all the instrumented tests, run  `./gradlew connectedAndroidTest`. This w
 * [Dagger 2](https://google.github.io/dagger/)
 * [Retrofit](http://square.github.io/retrofit/)
 * [OkHttp](http://square.github.io/okhttp/)
-* [Picasso](square.github.io/picasso/)
+* [Picasso](http://square.github.io/picasso/)
 * [Stetho](http://facebook.github.io/stetho/)
 * [Room](https://developer.android.com/topic/libraries/architecture/room.html)
 * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html)
