@@ -22,16 +22,19 @@ class ListRemoteDataTest {
     @Test
     fun getPosts() {
         whenever(postService.getPosts()).thenReturn(Flowable.just(listOf(
-                DummyData.Post(101),
-                DummyData.Post(102)
+                DummyData.Post(1, 101),
+                DummyData.Post(2, 102)
         )))
 
         ListRemoteData(postService).getPosts().test().run {
             assertNoErrors()
             assertValueCount(1)
             assertEquals(values()[0].size, 2)
-            assertEquals(values()[0][0].userId, 101)
-            assertEquals(values()[0][1].userId, 102)
+            assertEquals(values()[0][0].userId, 1)
+            assertEquals(values()[0][0].postId, 101)
+            assertEquals(values()[0][1].userId, 2)
+            assertEquals(values()[0][1].postId, 102)
+
         }
     }
 
