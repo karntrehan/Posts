@@ -17,6 +17,9 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import java.io.IOException
 
+/**
+ * Tests for [ListViewModel]
+ * */
 @RunWith(RobolectricTestRunner::class)
 class ListViewModelTest {
 
@@ -33,6 +36,11 @@ class ListViewModelTest {
         viewModel.postsOutcome.observeForever(outcome)
     }
 
+    /**
+     * Test [ListViewModel.getPosts] triggers [ListDataContract.Repository.fetchPosts] &
+     * livedata [ListViewModel.postsOutcome] gets outcomes pushed
+     * from [ListDataContract.Repository.postFetchOutcome]
+     * */
     @Test
     fun testGetPostsSuccess() {
         viewModel.getPosts()
@@ -49,6 +57,10 @@ class ListViewModelTest {
         verify(outcome).onChanged(Outcome.success(data))
     }
 
+    /**
+     * Test that [ListDataContract.Repository.postFetchOutcome] on exception passes exception to
+     * live [ListViewModel.postsOutcome]
+     * */
     @Test
     fun testGetPostsError() {
         val exception = IOException()
@@ -56,6 +68,9 @@ class ListViewModelTest {
         verify(outcome).onChanged(Outcome.failure(exception))
     }
 
+    /**
+     * Verify [ListViewModel.refreshPosts] triggers [ListDataContract.Repository.refreshPosts]
+     * */
     @Test
     fun testRefreshPosts() {
         viewModel.refreshPosts()
