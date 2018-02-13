@@ -61,7 +61,8 @@ dependencies {
     //Local unit tests
     testImplementation deps.test.junit
     testImplementation deps.test.mockitoKotlin
-    testImplementation deps.test.roboelectric
+    testImplementation deps.test.robolectric
+    testImplementation deps.test.mockWebServer
     testImplementation deps.test.livedataTesting
     testImplementation deps.test.roomTesting
 
@@ -71,5 +72,4 @@ dependencies {
     androidTestImplementation deps.test.atslRules
     androidTestImplementation deps.test.roomTesting
     androidTestImplementation deps.test.livedataTesting
-
 }
