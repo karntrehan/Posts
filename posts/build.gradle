@@ -37,16 +37,6 @@ android {
             includeAndroidResources = true
         }
     }
-    /*http://blog.danlew.net/2015/11/02/sharing-code-between-unit-tests-and-instrumentation-tests-on-android/*/
-    sourceSets {
-        String sharedTestDir = 'src/sharedTest/java/com/karntrehan/posts/shared_tests'
-        test {
-            java.srcDir sharedTestDir
-        }
-        androidTest {
-            java.srcDir sharedTestDir
-        }
-    }
 }
 
 androidExtensions {

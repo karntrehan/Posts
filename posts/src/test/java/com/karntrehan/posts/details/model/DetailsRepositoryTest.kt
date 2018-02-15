@@ -1,7 +1,7 @@
 package com.karntrehan.posts.details.model
 
-import com.karntrehan.posts.commons.DummyData
-import com.karntrehan.posts.commons.TestScheduler
+import com.karntrehan.posts.commons.testing.DummyData
+import com.karntrehan.posts.core.testing.TestScheduler
 import com.karntrehan.posts.commons.data.local.Comment
 import com.mpaani.core.networking.Outcome
 import com.nhaarman.mockito_kotlin.*

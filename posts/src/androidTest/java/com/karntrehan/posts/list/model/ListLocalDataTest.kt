@@ -3,8 +3,8 @@ package com.karntrehan.posts.list.model
 import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.karntrehan.posts.commons.DummyData
-import com.karntrehan.posts.commons.TestScheduler
+import com.karntrehan.posts.commons.testing.DummyData
+import com.karntrehan.posts.core.testing.TestScheduler
 import com.karntrehan.posts.commons.data.local.PostDb
 import org.junit.After
 import org.junit.Before

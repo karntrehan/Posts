@@ -1,6 +1,6 @@
 package  com.karntrehan.posts.details.model
 
-import com.karntrehan.posts.commons.DummyData
+import com.karntrehan.posts.commons.testing.DummyData
 import com.karntrehan.posts.commons.data.remote.PostService
 import com.karntrehan.posts.list.model.ListRemoteData
 import com.nhaarman.mockito_kotlin.mock
