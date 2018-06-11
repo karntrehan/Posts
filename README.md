@@ -16,6 +16,8 @@ Some of the features of the app include
 
  - **Offline first architecture** - All the data is first tried to be loaded from the db and then updated from the server. This ensures that the app is usable even in an offline mode.
 
+ - **Intelligent sync** -Intelligent hybrid syncing logic makes sure your Android app does not make repeated calls to the same back-end API for the same data in a particular time period.
+
  - **Dependency Injection** - Common elements like `context`, `networking` interface are injected using Dagger 2.
 
  - **Feature based packaging** - This screen-wise / feature-wise packaging makes code really easy to read and debug.
@@ -48,12 +50,13 @@ override fun fetchPosts() {
     //Observe changes to the db
     local.getPostsWithUsers()
             .performOnBackOutOnMain(scheduler)
+            .doAfterNext {
+                if (Synk.shouldSync(SynkKeys.POSTS_HOME, 2, TimeUnit.HOURS))
+                    refreshPosts()
+            }
             .subscribe({ retailers ->
                 postFetchOutcome.success(retailers)
-                if (remoteFetch)
-                    refreshPosts()
-                remoteFetch = false
-            }, { error -> handleError(error) })
+                }, { error -> handleError(error) })
             .addTo(compositeDisposable)
 }
 
@@ -62,12 +65,18 @@ override fun refreshPosts() {
     Flowable.zip(
             remote.getUsers(),
             remote.getPosts(),
-            BiFunction<List<User>, List<Post>, Unit> { t1, t2 -> saveUsersAndPosts(t1, t2) }
+             zipUsersAndPosts()
     )
             .performOnBackOutOnMain(scheduler)
+            .updateSynkStatus(key = SynkKeys.POSTS_HOME)
             .subscribe({}, { error -> handleError(error) })
             .addTo(compositeDisposable)
 }
+
+private fun zipUsersAndPosts() =
+        BiFunction<List<User>, List<Post>, Unit> { users, posts ->
+            saveUsersAndPosts(users, posts)
+        }
 
 override fun saveUsersAndPosts(users: List<User>, posts: List<Post>) {
     local.saveUsersAndPosts(users, posts)
