@@ -6,6 +6,7 @@ import com.karntrehan.posts.commons.data.local.Comment
 import com.mpaani.core.networking.Outcome
 import com.nhaarman.mockito_kotlin.*
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.TestObserver
 import org.junit.Before
@@ -29,7 +30,7 @@ class DetailsRepositoryTest {
     fun init() {
         repository = DetailsRepository(local, remote, TestScheduler(), compositeDisposable)
         whenever(local.getCommentsForPost(postId)).doReturn(Flowable.just(emptyList()))
-        whenever(remote.getCommentsForPost(postId)).doReturn(Flowable.just(emptyList()))
+        whenever(remote.getCommentsForPost(postId)).doReturn(Single.just(emptyList()))
     }
 
     /**
@@ -56,36 +57,12 @@ class DetailsRepositoryTest {
     }
 
     /**
-     * Verify if calling [DetailsRepository.fetchCommentsFor] triggers [DetailsDataContract.Remote.getCommentsForPost]
-     * if [DetailsRepository.remoteFetch] = true
-     * */
-    @Test
-    fun testFirstFetchPostsTriggersRemote() {
-        repository.remoteFetch = true
-        repository.fetchCommentsFor(postId)
-        verify(remote).getCommentsForPost(postId)
-    }
-
-
-    /**
-     * Verify if calling [DetailsRepository.fetchCommentsFor] NEVER triggers [DetailsDataContract.Remote.getCommentsForPost]
-     *  if [DetailsRepository.remoteFetch] = false
-     * */
-    @Test
-    fun testSubsequentFetchPostsNeverTriggersRemote() {
-        repository.remoteFetch = false
-        repository.fetchCommentsFor(postId)
-        verify(remote, never()).getCommentsForPost(postId)
-    }
-
-
-    /**
      * Verify successful refresh of posts and users triggers [DetailsDataContract.Local.saveComments]
      * */
     @Test
     fun testRefreshPostsTriggersSave() {
         val dummyComments = listOf(DummyData.Comment(postId, 1), DummyData.Comment(postId, 2))
-        whenever(remote.getCommentsForPost(postId)).doReturn(Flowable.just(dummyComments))
+        whenever(remote.getCommentsForPost(postId)).doReturn(Single.just(dummyComments))
 
         repository.refreshComments(postId)
         verify(local).saveComments(dummyComments)
@@ -98,7 +75,7 @@ class DetailsRepositoryTest {
     @Test
     fun testRefreshPostsFailurePushesToOutcome() {
         val exception = IOException()
-        whenever(remote.getCommentsForPost(postId)).doReturn(Flowable.error(exception))
+        whenever(remote.getCommentsForPost(postId)).doReturn(Single.error(exception))
 
         val obs = TestObserver<Outcome<List<Comment>>>()
         repository.commentsFetchOutcome.subscribe(obs)

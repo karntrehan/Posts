@@ -6,6 +6,7 @@ import com.karntrehan.posts.core.BuildConfig
 import com.karntrehan.posts.core.di.AppModule
 import com.karntrehan.posts.core.di.CoreComponent
 import com.karntrehan.posts.core.di.DaggerCoreComponent
+import com.karntrehan.posts.core.networking.synk.Synk
 
 open class CoreApp : Application() {
 
@@ -15,8 +16,13 @@ open class CoreApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        initSynk()
         initDI()
         initStetho()
+    }
+
+    private fun initSynk() {
+        Synk.init(this)
     }
 
     private fun initStetho() {
@@ -27,6 +33,4 @@ open class CoreApp : Application() {
     private fun initDI() {
         coreComponent = DaggerCoreComponent.builder().appModule(AppModule(this)).build()
     }
-
-
 }

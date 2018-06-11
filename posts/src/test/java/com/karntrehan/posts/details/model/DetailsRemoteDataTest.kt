@@ -1,11 +1,11 @@
 package  com.karntrehan.posts.details.model
 
-import com.karntrehan.posts.commons.testing.DummyData
 import com.karntrehan.posts.commons.data.remote.PostService
+import com.karntrehan.posts.commons.testing.DummyData
 import com.karntrehan.posts.list.model.ListRemoteData
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import io.reactivex.Flowable
+import io.reactivex.Single
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,11 +22,15 @@ class DetailsRemoteDataTest {
     @Test
     fun getCommentsForPost() {
         val userId = 1
-        whenever(postService.getComments(userId)).thenReturn(Flowable.just(listOf(
-                DummyData.Comment(userId, 101),
-                DummyData.Comment(userId, 102),
-                DummyData.Comment(userId, 103)
-        )))
+        whenever(postService.getComments(userId)).thenReturn(
+            Single.just(
+                listOf(
+                    DummyData.Comment(userId, 101),
+                    DummyData.Comment(userId, 102),
+                    DummyData.Comment(userId, 103)
+                )
+            )
+        )
 
         DetailsRemoteData(postService).getCommentsForPost(userId).test().run {
             assertNoErrors()

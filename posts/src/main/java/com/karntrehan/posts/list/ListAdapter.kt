@@ -11,19 +11,28 @@ import com.karntrehan.posts.R
 import com.karntrehan.posts.commons.data.PostWithUser
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.post_item.view.*
+import java.math.BigInteger
 
-class ListAdapter(private val picasso: Picasso) : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
+class ListAdapter(private val picasso: Picasso) :
+    RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
+
     private var data = emptyList<PostWithUser>()
     var interactor: PostInteractor? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ListViewHolder {
-        return ListViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.post_item, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
+        return ListViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.post_item,
+                parent,
+                false
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: ListViewHolder?, position: Int) {
-        holder?.bind(data[position], picasso)
+    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+        holder.bind(data[position], picasso)
 
-        if (holder?.itemView != null)
+        if (holder.itemView != null)
             holder.itemView.setOnClickListener { view ->
                 with(view) {
                     interactor?.postClicked(data[position], tvTitle, tvBody, tvAuthorName, ivAvatar)
@@ -49,15 +58,21 @@ class ListAdapter(private val picasso: Picasso) : RecyclerView.Adapter<ListAdapt
                 picasso.load(getAvatarPhoto()).into(itemView.ivAvatar)
 
                 //SharedItem transition
-                ViewCompat.setTransitionName(itemView.tvTitle, postTitle);
-                ViewCompat.setTransitionName(itemView.tvBody, postBody);
-                ViewCompat.setTransitionName(itemView.tvAuthorName, userName);
-                ViewCompat.setTransitionName(itemView.ivAvatar, getAvatarPhoto());
+                ViewCompat.setTransitionName(itemView.tvTitle, postTitle)
+                ViewCompat.setTransitionName(itemView.tvBody, postBody)
+                ViewCompat.setTransitionName(itemView.tvAuthorName, userName)
+                ViewCompat.setTransitionName(itemView.ivAvatar, getAvatarPhoto())
             }
         }
     }
 
     interface PostInteractor {
-        fun postClicked(post: PostWithUser, tvTitle: TextView, tvBody: TextView, tvAuthorName: TextView, ivAvatar: ImageView)
+        fun postClicked(
+            post: PostWithUser,
+            tvTitle: TextView,
+            tvBody: TextView,
+            tvAuthorName: TextView,
+            ivAvatar: ImageView
+        )
     }
 }

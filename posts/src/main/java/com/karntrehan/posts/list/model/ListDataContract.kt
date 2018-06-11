@@ -5,6 +5,7 @@ import com.karntrehan.posts.commons.data.local.Post
 import com.karntrehan.posts.commons.data.local.User
 import com.mpaani.core.networking.Outcome
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 
 interface ListDataContract {
@@ -22,7 +23,7 @@ interface ListDataContract {
     }
 
     interface Remote {
-        fun getUsers(): Flowable<List<User>>
-        fun getPosts(): Flowable<List<Post>>
+        fun getUsers(): Single<List<User>>
+        fun getPosts(): Single<List<Post>>
     }
 }

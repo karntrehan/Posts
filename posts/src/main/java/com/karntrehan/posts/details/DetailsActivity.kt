@@ -152,7 +152,7 @@ class DetailsActivity : BaseActivity() {
 
                 is Outcome.Failure -> {
                     when (outcome.e) {
-                        DetailsExceptions.NoCommentsException() -> tvCommentError.visibility =
+                        DetailsExceptions.NoComments() -> tvCommentError.visibility =
                                 View.VISIBLE
                         IOException() -> Toast.makeText(
                             context,

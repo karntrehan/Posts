@@ -11,9 +11,9 @@ import kotlinx.android.synthetic.main.comment_item.view.*
 class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder>() {
     private var data = emptyList<Comment>()
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DetailsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailsViewHolder {
         return DetailsViewHolder(
-            LayoutInflater.from(parent?.context).inflate(
+            LayoutInflater.from(parent.context).inflate(
                 R.layout.comment_item,
                 parent,
                 false
@@ -21,8 +21,8 @@ class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder>() 
         )
     }
 
-    override fun onBindViewHolder(holder: DetailsViewHolder?, position: Int) {
-        holder?.bind(data[position])
+    override fun onBindViewHolder(holder: DetailsViewHolder, position: Int) {
+        holder.bind(data[position])
     }
 
     override fun getItemCount(): Int {

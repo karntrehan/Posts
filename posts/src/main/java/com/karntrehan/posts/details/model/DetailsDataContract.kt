@@ -3,6 +3,7 @@ package com.karntrehan.posts.details.model
 import com.karntrehan.posts.commons.data.local.Comment
 import com.mpaani.core.networking.Outcome
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 
 interface DetailsDataContract {
@@ -20,6 +21,6 @@ interface DetailsDataContract {
     }
 
     interface Remote {
-        fun getCommentsForPost(postId: Int): Flowable<List<Comment>>
+        fun getCommentsForPost(postId: Int): Single<List<Comment>>
     }
 }

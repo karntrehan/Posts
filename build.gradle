@@ -4,9 +4,10 @@ buildscript {
     ext.versions = [
             'minSdk'           : 16,
             'compileSdk'       : 27,
+            'supportVer'       : '27.1.1',
 
-            'buildTools'       : '27.0.2',
-            'androidPlugin'    : '3.1.0-alpha08',
+            'buildTools'       : '27.0.3',
+            'androidPlugin'    : '3.1.3',
             'kotlin'           : '1.2.20',
             'archComp'         : '1.1.0',
             'livedataTesting'  : '1.1.0',
@@ -23,6 +24,7 @@ buildscript {
             'picasso'          : '2.5.2',
             'rxJava'           : '2.1.7',
             'rxAndroid'        : '2.0.1',
+            'jodaTime'         : "2.9.9",
             'stetho'           : '1.5.0',
             'junit'            : '4.12',
             'atsl'             : '1.0.1',
@@ -34,7 +36,7 @@ buildscript {
 
 
     ext.deps = [
-            android  : [
+            android   : [
                     'gradlePlugin'   : "com.android.tools.build:gradle:${versions.androidPlugin}",
                     'lifecycleExt'   : "android.arch.lifecycle:extensions:${versions.archComp}",
                     'lifecycleCommon': "android.arch.lifecycle:common-java8:${versions.archComp}",
@@ -42,28 +44,28 @@ buildscript {
                     'roomCompiler'   : "android.arch.persistence.room:compiler:${versions.room}",
                     'roomRx'         : "android.arch.persistence.room:rxjava2:${versions.roomRx}",
             ],
-            support  : [
-                    'appCompat'    : "com.android.support:appcompat-v7:${versions.buildTools}",
-                    'recyclerView' : "com.android.support:recyclerview-v7:${versions.buildTools}",
-                    'cardView'     : "com.android.support:cardview-v7:${versions.buildTools}",
-                    'support'      : "com.android.support:support-v4:${versions.buildTools}",
-                    'designSupport': "com.android.support:design:${versions.buildTools}",
+            support   : [
+                    'appCompat'    : "com.android.support:appcompat-v7:${versions.supportVer}",
+                    'recyclerView' : "com.android.support:recyclerview-v7:${versions.supportVer}",
+                    'cardView'     : "com.android.support:cardview-v7:${versions.supportVer}",
+                    'support'      : "com.android.support:support-v4:${versions.supportVer}",
+                    'designSupport': "com.android.support:design:${versions.supportVer}",
             ],
-            kotlin   : [
+            kotlin    : [
                     'gradlePlugin': "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}",
                     'stdlib'      : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}",
             ],
-            reactivex: [
+            reactivex : [
                     'rxJava'   : "io.reactivex.rxjava2:rxjava:${versions.rxJava}",
                     'rxAndroid': "io.reactivex.rxjava2:rxandroid:${versions.rxAndroid}"
             ],
-            google   : [
+            google    : [
                     'gmsPlugin'      : "com.google.gms:google-services:${versions.gms}",
                     'dagger'         : "com.google.dagger:dagger:${versions.dagger}",
                     'daggerProcessor': "com.google.dagger:dagger-compiler:${versions.dagger}",
                     'gson'           : "com.google.code.gson:gson:${versions.gson}",
             ],
-            square   : [
+            square    : [
                     'retrofit'         : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
                     'gsonConverter'    : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
                     'okhttp'           : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
@@ -71,11 +73,14 @@ buildscript {
                     'okhttpDownloader' : "com.jakewharton.picasso:picasso2-okhttp3-downloader:${versions.okhttpDownloader}",
                     'retrofitRxAdapter': "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${versions.retrofitRxAdapter}",
             ],
-            facebook : [
+            facebook  : [
                     'stetho'            : "com.facebook.stetho:stetho:${versions.stetho}",
                     'networkInterceptor': "com.facebook.stetho:stetho-okhttp3:${versions.stetho}"
             ],
-            test     : [
+            additional: [
+                    'jodaTime': "joda-time:joda-time:${versions.jodaTime}"
+            ],
+            test      : [
                     'junit'          : "junit:junit:${versions.junit}",
                     'atslRunner'     : "com.android.support.test:runner:${versions.atsl}",
                     'atslRules'      : "com.android.support.test:rules:${versions.atsl}",

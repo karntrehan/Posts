@@ -6,6 +6,7 @@ import com.karntrehan.posts.commons.data.PostWithUser
 import com.mpaani.core.networking.Outcome
 import com.nhaarman.mockito_kotlin.*
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.TestObserver
 import org.junit.Before
@@ -29,8 +30,8 @@ class ListRepositoryTest {
     fun init() {
         repository = ListRepository(local, remote, TestScheduler(), compositeDisposable)
         whenever(local.getPostsWithUsers()).doReturn(Flowable.just(emptyList()))
-        whenever(remote.getUsers()).doReturn(Flowable.just(emptyList()))
-        whenever(remote.getPosts()).doReturn(Flowable.just(emptyList()))
+        whenever(remote.getUsers()).doReturn(Single.just(emptyList()))
+        whenever(remote.getPosts()).doReturn(Single.just(emptyList()))
     }
 
     /**
@@ -56,32 +57,6 @@ class ListRepositoryTest {
     }
 
     /**
-     * Verify if calling [ListRepository.fetchPosts] triggers [ListDataContract.Remote.getUsers]
-     * & [ListDataContract.Remote.getPosts] if [ListRepository.remoteFetch] = true
-     * */
-    @Test
-    fun testFirstFetchPostsTriggersRemote() {
-        repository.remoteFetch = true
-        repository.fetchPosts()
-        verify(remote).getPosts()
-        verify(remote).getUsers()
-    }
-
-
-    /**
-     * Verify if calling [ListRepository.fetchPosts] NEVER triggers [ListDataContract.Remote.getUsers]
-     * & [ListDataContract.Remote.getPosts] if [ListRepository.remoteFetch] = false
-     * */
-    @Test
-    fun testSubsequentFetchPostsNeverTriggersRemote() {
-        repository.remoteFetch = false
-        repository.fetchPosts()
-        verify(remote, never()).getPosts()
-        verify(remote, never()).getUsers()
-    }
-
-
-    /**
      * Verify successful refresh of posts and users triggers [ListDataContract.Local.saveUsersAndPosts]
      * */
     @Test
@@ -89,8 +64,8 @@ class ListRepositoryTest {
         val userId = 1
         val dummyUsers = listOf(DummyData.User(userId))
         val dummyPosts = listOf(DummyData.Post(userId, 1))
-        whenever(remote.getUsers()).doReturn(Flowable.just(dummyUsers))
-        whenever(remote.getPosts()).doReturn(Flowable.just(dummyPosts))
+        whenever(remote.getUsers()).doReturn(Single.just(dummyUsers))
+        whenever(remote.getPosts()).doReturn(Single.just(dummyPosts))
 
         repository.refreshPosts()
         verify(local).saveUsersAndPosts(dummyUsers, dummyPosts)
@@ -103,7 +78,7 @@ class ListRepositoryTest {
     @Test
     fun testRefreshPostsFailurePushesToOutcome() {
         val exception = IOException()
-        whenever(remote.getUsers()).doReturn(Flowable.error(exception))
+        whenever(remote.getUsers()).doReturn(Single.error(exception))
 
         val obs = TestObserver<Outcome<List<PostWithUser>>>()
         repository.postFetchOutcome.subscribe(obs)

@@ -69,6 +69,8 @@ dependencies {
     api deps.square.gsonConverter
     api deps.square.retrofitRxAdapter
 
+    api deps.additional.jodaTime
+
     implementation deps.facebook.stetho
     implementation deps.facebook.networkInterceptor
 }

@@ -16,6 +16,7 @@ import com.karntrehan.posts.details.DetailsActivity
 import com.karntrehan.posts.list.viewmodel.ListViewModel
 import com.karntrehan.posts.list.viewmodel.ListViewModelFactory
 import com.mpaani.core.networking.Outcome
+import io.reactivex.exceptions.CompositeException
 import kotlinx.android.synthetic.main.activity_list.*
 import java.io.IOException
 import javax.inject.Inject
@@ -29,7 +30,9 @@ class ListActivity : BaseActivity(), ListAdapter.PostInteractor {
     @Inject
     lateinit var adapter: ListAdapter
 
-    private val viewModel: ListViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(ListViewModel::class.java) }
+    private val viewModel: ListViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(ListViewModel::class.java)
+    }
 
     private val context: Context by lazy { this }
 
@@ -62,18 +65,33 @@ class ListActivity : BaseActivity(), ListAdapter.PostInteractor {
                 }
 
                 is Outcome.Failure -> {
+
                     if (outcome.e is IOException)
-                        Toast.makeText(context, R.string.need_internet_posts, Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            context,
+                            R.string.need_internet_posts,
+                            Toast.LENGTH_LONG
+                        ).show()
                     else
-                        Toast.makeText(context, R.string.failed_post_try_again, Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            context,
+                            R.string.failed_post_try_again,
+                            Toast.LENGTH_LONG
+                        ).show()
                 }
 
             }
         })
     }
 
-    override fun postClicked(post: PostWithUser, tvTitle: TextView, tvBody: TextView, tvAuthorName: TextView, ivAvatar: ImageView) {
-        DetailsActivity.start(context, post,tvTitle,tvBody,tvAuthorName,ivAvatar)
+    override fun postClicked(
+        post: PostWithUser,
+        tvTitle: TextView,
+        tvBody: TextView,
+        tvAuthorName: TextView,
+        ivAvatar: ImageView
+    ) {
+        DetailsActivity.start(context, post, tvTitle, tvBody, tvAuthorName, ivAvatar)
     }
 
 }
