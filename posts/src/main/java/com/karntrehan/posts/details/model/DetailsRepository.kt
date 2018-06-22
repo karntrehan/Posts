@@ -32,8 +32,8 @@ class DetailsRepository(
                 if (Synk.shouldSync(SynkKeys.POST_DETAILS + "_" + postId, 2, TimeUnit.HOURS))
                     refreshComments(postId)
             }
-            .subscribe({ retailers ->
-                commentsFetchOutcome.success(retailers)
+            .subscribe({ comments ->
+                commentsFetchOutcome.success(comments)
             }, { error -> handleError(error) })
             .addTo(compositeDisposable)
     }

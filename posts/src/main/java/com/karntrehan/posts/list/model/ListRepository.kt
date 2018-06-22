@@ -34,8 +34,8 @@ class ListRepository(
                 if (Synk.shouldSync(SynkKeys.POSTS_HOME, 2, TimeUnit.HOURS))
                     refreshPosts()
             }
-            .subscribe({ retailers ->
-                postFetchOutcome.success(retailers)
+            .subscribe({ postsWithUsers ->
+                postFetchOutcome.success(postsWithUsers)
             }, { error -> handleError(error) })
             .addTo(compositeDisposable)
     }

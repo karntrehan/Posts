@@ -20,24 +20,26 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRetrofit(gsonConverterFactory: GsonConverterFactory,
-                         rxJava2CallAdapterFactory: RxJava2CallAdapterFactory,
-                         okHttpClient: OkHttpClient): Retrofit {
+    fun providesRetrofit(
+        gsonConverterFactory: GsonConverterFactory,
+        rxJava2CallAdapterFactory: RxJava2CallAdapterFactory,
+        okHttpClient: OkHttpClient
+    ): Retrofit {
         return Retrofit.Builder().baseUrl(Constants.API_URL)
-                .addConverterFactory(gsonConverterFactory)
-                .addCallAdapterFactory(rxJava2CallAdapterFactory)
-                .client(okHttpClient)
-                .build()
+            .addConverterFactory(gsonConverterFactory)
+            .addCallAdapterFactory(rxJava2CallAdapterFactory)
+            .client(okHttpClient)
+            .build()
     }
 
     @Provides
     @Singleton
     fun providesOkHttpClient(cache: Cache): OkHttpClient {
         val client = OkHttpClient.Builder()
-                .cache(cache)
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
+            .cache(cache)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
 
         if (BuildConfig.DEBUG)
             client.addNetworkInterceptor(StethoInterceptor())

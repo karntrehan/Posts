@@ -133,6 +133,7 @@ To run all the instrumented tests, run  `./gradlew connectedAndroidTest`. This w
 To read more about the architecture choices and the decisions behind this project, kindly refer to the following articles:
 * [Effective Networking On Android using Retrofit, Rx and Architecture Components](https://medium.com/mindorks/effective-networking-on-android-using-retrofit-rx-and-architecture-components-4554ca5b167d)
 * [Writing a modular project on Android](https://medium.com/mindorks/writing-a-modular-project-on-android-304f3b09cb37)
+* [To Synk or not to Synk](https://medium.com/mindorks/to-synk-or-not-to-synk-fcc6e4c56e14)
 
 **Talk to the developer about this project**: [@karntrehan](https://twitter.com/karntrehan)
 

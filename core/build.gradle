@@ -71,6 +71,6 @@ dependencies {
 
     api deps.additional.jodaTime
 
-    implementation deps.facebook.stetho
-    implementation deps.facebook.networkInterceptor
+    api deps.facebook.stetho
+    api deps.facebook.networkInterceptor
 }
