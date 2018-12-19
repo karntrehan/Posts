@@ -52,7 +52,7 @@ dependencies {
     api deps.android.roomRuntime
     api deps.android.roomRx
 
-    api deps.kotlin.stdlib
+    api deps.kotlin.stdlib7
 
     api deps.reactivex.rxJava
     api deps.reactivex.rxAndroid
