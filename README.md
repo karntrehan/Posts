@@ -126,8 +126,8 @@ To run all the instrumented tests, run  `./gradlew connectedAndroidTest`. This w
 
 # Build info:
   - Android Studio - 3.1 Canary 8
-  - Compile SDK - 27
-  - MinSDK - 16, Target - 27
+  - Compile SDK - 28
+  - MinSDK - 16, Target - 28
 
 # Articles
 To read more about the architecture choices and the decisions behind this project, kindly refer to the following articles:
