@@ -8,7 +8,7 @@ import com.karntrehan.posts.core.constants.Constants
 import com.karntrehan.posts.core.di.CoreComponent
 import com.karntrehan.posts.core.networking.Scheduler
 import com.karntrehan.posts.list.ListActivity
-import com.karntrehan.posts.list.ListAdapter
+import com.karntrehan.posts.list.PostListAdapter
 import com.karntrehan.posts.list.model.ListDataContract
 import com.karntrehan.posts.list.model.ListLocalData
 import com.karntrehan.posts.list.model.ListRemoteData
@@ -42,7 +42,7 @@ class ListModule {
     /*Adapter*/
     @Provides
     @ListScope
-    fun adapter(picasso: Picasso): ListAdapter = ListAdapter(picasso)
+    fun adapter(picasso: Picasso): PostListAdapter = PostListAdapter(picasso)
 
     /*ViewModel*/
     @Provides

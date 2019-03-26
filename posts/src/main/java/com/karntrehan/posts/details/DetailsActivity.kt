@@ -1,20 +1,20 @@
 package com.karntrehan.posts.details
 
 import android.app.Activity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.util.Pair
-import androidx.core.view.ViewCompat
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
+import androidx.core.view.ViewCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.karntrehan.posts.R
 import com.karntrehan.posts.commons.PostDH
 import com.karntrehan.posts.commons.data.PostWithUser
@@ -30,7 +30,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 
-class DetailsActivity : BaseActivity() {
+class DetailsActivity : BaseActivity(), DetailsAdapter.Interaction {
 
     companion object {
         private const val SELECTED_POST = "post"
@@ -41,12 +41,12 @@ class DetailsActivity : BaseActivity() {
         private const val AVATAR_TRANSITION_NAME = "avatar_transition"
 
         fun start(
-            context: Context,
-            post: PostWithUser,
-            tvTitle: TextView,
-            tvBody: TextView,
-            tvAuthorName: TextView,
-            ivAvatar: ImageView
+                context: Context,
+                post: PostWithUser,
+                tvTitle: TextView,
+                tvBody: TextView,
+                tvAuthorName: TextView,
+                ivAvatar: ImageView
         ) {
             val intent = Intent(context, DetailsActivity::class.java)
             intent.putExtra(SELECTED_POST, post)
@@ -62,11 +62,11 @@ class DetailsActivity : BaseActivity() {
             val p3 = Pair.create(tvAuthorName as View, ViewCompat.getTransitionName(tvAuthorName))
             val p4 = Pair.create(ivAvatar as View, ViewCompat.getTransitionName(ivAvatar))
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                context as Activity,
-                p1,
-                p2,
-                p3,
-                p4
+                    context as Activity,
+                    p1,
+                    p2,
+                    p3,
+                    p4
             )
 
             context.startActivity(intent, options.toBundle())
@@ -85,8 +85,7 @@ class DetailsActivity : BaseActivity() {
 
     private val component by lazy { PostDH.detailsComponent() }
 
-    @Inject
-    lateinit var adapter: DetailsAdapter
+    val adapter: DetailsAdapter by lazy { DetailsAdapter(this) }
 
     @Inject
     lateinit var viewModelFactory: DetailsViewModelFactory
@@ -147,7 +146,7 @@ class DetailsActivity : BaseActivity() {
                 is Outcome.Success -> {
                     Log.d(TAG, "observeData:  Successfully loaded data")
                     tvCommentError.visibility = View.GONE
-                    adapter.setData(outcome.data)
+                    adapter.swapData(outcome.data)
                 }
 
                 is Outcome.Failure -> {
@@ -155,19 +154,23 @@ class DetailsActivity : BaseActivity() {
                         DetailsExceptions.NoComments() -> tvCommentError.visibility =
                                 View.VISIBLE
                         IOException() -> Toast.makeText(
-                            context,
-                            R.string.need_internet_posts,
-                            Toast.LENGTH_LONG
+                                context,
+                                R.string.need_internet_posts,
+                                Toast.LENGTH_LONG
                         ).show()
                         else -> Toast.makeText(
-                            context,
-                            R.string.failed_post_try_again,
-                            Toast.LENGTH_LONG
+                                context,
+                                R.string.failed_post_try_again,
+                                Toast.LENGTH_LONG
                         ).show()
                     }
                 }
 
             }
         })
+    }
+
+    override fun commentClicked(model: Comment) {
+        Log.d(TAG, "Comment clicked: $model")
     }
 }
