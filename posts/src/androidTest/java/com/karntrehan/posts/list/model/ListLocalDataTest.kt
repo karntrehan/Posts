@@ -1,8 +1,8 @@
 package com.karntrehan.posts.list.model
 
-import android.arch.persistence.room.Room
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+import androidx.room.Room
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.karntrehan.posts.commons.testing.DummyData
 import com.karntrehan.posts.core.testing.TestScheduler
 import com.karntrehan.posts.commons.data.local.PostDb
@@ -11,7 +11,7 @@ import org.junit.Before
 import org.junit.runner.RunWith
 import org.junit.Rule
 import org.junit.Test
-import android.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 
 /**
  *
@@ -37,7 +37,7 @@ class ListLocalDataTest {
     @Before
     fun init() {
         postDb = Room
-                .inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(), PostDb::class.java)
+                .inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().context, PostDb::class.java)
                 .allowMainThreadQueries()
                 .build()
     }

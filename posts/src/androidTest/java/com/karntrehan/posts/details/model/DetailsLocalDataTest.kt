@@ -1,9 +1,9 @@
 package com.karntrehan.posts.details.model
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
-import android.arch.persistence.room.Room
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.room.Room
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.karntrehan.posts.commons.testing.DummyData
 import com.karntrehan.posts.core.testing.TestScheduler
 import com.karntrehan.posts.commons.data.local.PostDb
@@ -37,7 +37,7 @@ class DetailsLocalDataTest {
     @Before
     fun init() {
         postDb = Room
-            .inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(), PostDb::class.java)
+            .inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().context, PostDb::class.java)
             .allowMainThreadQueries()
             .build()
 

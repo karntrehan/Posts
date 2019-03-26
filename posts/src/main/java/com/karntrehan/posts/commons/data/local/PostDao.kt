@@ -1,6 +1,6 @@
 package com.karntrehan.posts.commons.data.local
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import com.karntrehan.posts.commons.data.PostWithUser
 import io.reactivex.Flowable
 

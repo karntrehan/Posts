@@ -1,6 +1,6 @@
 package com.karntrehan.posts.details
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import com.karntrehan.posts.R
 import com.karntrehan.posts.commons.data.local.Comment
 import kotlinx.android.synthetic.main.comment_item.view.*
 
-class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder>() {
+class DetailsAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder>() {
     private var data = emptyList<Comment>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailsViewHolder {
@@ -34,7 +34,7 @@ class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder>() 
         notifyDataSetChanged()
     }
 
-    class DetailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class DetailsViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         fun bind(comment: Comment) {
             with(comment) {
                 itemView.tvComment.text = body

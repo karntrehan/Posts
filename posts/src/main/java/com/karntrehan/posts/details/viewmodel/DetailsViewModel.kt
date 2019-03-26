@@ -1,7 +1,7 @@
 package com.karntrehan.posts.details.viewmodel
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.karntrehan.posts.commons.PostDH
 import com.karntrehan.posts.commons.data.local.Comment
 import com.karntrehan.posts.core.extensions.toLiveData

@@ -1,7 +1,7 @@
 package com.karntrehan.posts.commons.data
 
 import android.annotation.SuppressLint
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.PrimaryKey
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 

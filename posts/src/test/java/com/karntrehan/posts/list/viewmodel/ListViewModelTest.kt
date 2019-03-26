@@ -1,6 +1,6 @@
 package com.karntrehan.posts.list.viewmodel
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import com.karntrehan.posts.commons.testing.DummyData
 import com.karntrehan.posts.commons.data.PostWithUser
 import com.karntrehan.posts.list.model.ListDataContract

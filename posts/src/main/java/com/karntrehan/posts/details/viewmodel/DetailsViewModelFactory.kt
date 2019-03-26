@@ -1,7 +1,7 @@
 package com.karntrehan.posts.details.viewmodel
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.karntrehan.posts.details.model.DetailsDataContract
 import io.reactivex.disposables.CompositeDisposable
 

@@ -1,6 +1,6 @@
 package com.karntrehan.posts.core.testing
 
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
 import com.karntrehan.posts.core.networking.Scheduler
 import io.reactivex.schedulers.Schedulers
 

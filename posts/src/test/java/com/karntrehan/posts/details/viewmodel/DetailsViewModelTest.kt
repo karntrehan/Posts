@@ -1,6 +1,6 @@
 package com.karntrehan.posts.details.viewmodel
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import com.karntrehan.posts.commons.testing.DummyData
 import com.karntrehan.posts.commons.data.local.Comment
 import com.karntrehan.posts.details.model.DetailsDataContract

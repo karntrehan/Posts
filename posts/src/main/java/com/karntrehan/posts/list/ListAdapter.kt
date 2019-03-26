@@ -1,7 +1,7 @@
 package com.karntrehan.posts.list
 
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.post_item.view.*
 import java.math.BigInteger
 
 class ListAdapter(private val picasso: Picasso) :
-    RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
 
     private var data = emptyList<PostWithUser>()
     var interactor: PostInteractor? = null
@@ -49,7 +49,7 @@ class ListAdapter(private val picasso: Picasso) :
         notifyDataSetChanged()
     }
 
-    class ListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ListViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         fun bind(post: PostWithUser, picasso: Picasso) {
             with(post) {
                 itemView.tvTitle.text = postTitle

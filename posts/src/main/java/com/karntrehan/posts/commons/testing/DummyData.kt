@@ -1,6 +1,6 @@
 package com.karntrehan.posts.commons.testing
 
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
 import com.karntrehan.posts.commons.data.PostWithUser
 import com.karntrehan.posts.commons.data.local.Comment
 import com.karntrehan.posts.commons.data.local.Post

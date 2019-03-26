@@ -1,6 +1,6 @@
 package com.karntrehan.posts.commons.data.local
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import io.reactivex.Flowable
 
 @Dao

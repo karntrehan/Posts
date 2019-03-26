@@ -1,7 +1,7 @@
 package com.karntrehan.posts.commons.data.local
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 
 @Database(entities = [Post::class, User::class, Comment::class], version = 1,exportSchema = false)
 abstract class PostDb : RoomDatabase() {
