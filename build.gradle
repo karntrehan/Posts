@@ -23,7 +23,7 @@ buildscript {
             'junit'            : '4.12',
             'atsl'             : '1.0.1',
             'mockitoKotlin'    : '1.5.0',
-            'robolectric'      : '3.6.1',
+            'robolectric'      : '4.3',
             'sourceCompat'     : JavaVersion.VERSION_1_8,
             'targetCompat'     : JavaVersion.VERSION_1_8
     ]

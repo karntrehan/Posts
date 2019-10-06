@@ -21,6 +21,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 class ListActivity : BaseActivity(), PostListAdapter.Interaction {
+
     private val component by lazy { PostDH.listComponent() }
 
     @Inject

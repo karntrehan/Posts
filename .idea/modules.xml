@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Posts.iml" filepath="$PROJECT_DIR$/Posts.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Posts.iml" filepath="$PROJECT_DIR$/Posts.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/Posts-core.iml" filepath="$PROJECT_DIR$/core/Posts-core.iml" group="Posts/core" />
+      <module fileurl="file://$PROJECT_DIR$/posts/Posts-posts.iml" filepath="$PROJECT_DIR$/posts/Posts-posts.iml" group="Posts/posts" />
+      <module fileurl="file://$PROJECT_DIR$/Projects-Posts.iml" filepath="$PROJECT_DIR$/Projects-Posts.iml" group="Posts" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/posts/posts.iml" filepath="$PROJECT_DIR$/posts/posts.iml" />
     </modules>

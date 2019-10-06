@@ -137,6 +137,12 @@ To read more about the architecture choices and the decisions behind this projec
 
 **Talk to the developer about this project**: [@karntrehan](https://twitter.com/karntrehan)
 
+# Other samples
+Below are some of the other samples I have opensourced: 
+* [Starwars](https://github.com/karntrehan/Starwars) : 2019 - A sample modular Android app written in Kotlin using Rx, Koin, Coroutines, Dagger 2 and Architecture components
+* [Agni](https://github.com/karntrehan/Agni) : 2019 - Android app template for modular apps with Dagger 2, Coroutines, LiveData, ViewModel and RxJava 2.
+* [Talko](https://github.com/karntrehan/Talko) : 2019 - A sample messaging UI app for Android writen in Kotlin with a working local persistence layer.
+
 # Libraries used
 * [Android Support Libraries](https://developer.android.com/topic/libraries/support-library/index.html)
 * [Dagger 2](https://google.github.io/dagger/)
